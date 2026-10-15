@@ -20,8 +20,30 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<!-- Theme: light by default, dark only if the reader chose it. Uses the portfolio's class. -->
+<script is:inline>
+	try {
+		if (localStorage.getItem('theme') === 'dark') {
+			document.documentElement.classList.add('theme-dark');
+		}
+	} catch (e) {}
+</script>
+
+<!-- Design tokens come from the portfolio's design system; the blog depends on them -->
+<link rel="preconnect" href="https://lenincuadra.com" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://lenincuadra.com/styles/tokens.css" />
+<link
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=Newsreader:wght@300;700&family=Shantell+Sans:wght@400;600&display=swap"
+/>
+
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
 	rel="alternate"

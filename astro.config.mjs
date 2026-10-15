@@ -8,4 +8,10 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
 	site: 'https://notes.lenincuadra.com',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		// Code blocks follow the blog's light/dark toggle (see global.css)
+		shikiConfig: {
+			themes: { light: 'github-light', dark: 'github-dark' },
+		},
+	},
 });

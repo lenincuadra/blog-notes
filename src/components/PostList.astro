@@ -10,22 +10,25 @@ interface Props {
 const { posts } = Astro.props;
 ---
 
-<section>
-	<ul>
-		{
-			posts.map((post) => (
-				<li>
-					<a href={`/${post.id}/`}>
-						{post.data.heroImage && (
-							<Image width={720} height={360} src={post.data.heroImage} alt="" />
-						)}
-						<h4 class="title">{post.data.title}</h4>
-						<p class="date">
-							<FormattedDate date={post.data.pubDate} />
-						</p>
-					</a>
-				</li>
-			))
-		}
-	</ul>
-</section>
+<ul class="post-list">
+	{
+		posts.map((post) => (
+			<li>
+				<a class="post-card" href={`/${post.id}/`}>
+					{post.data.heroImage && (
+						<Image class="post-card-image" width={720} height={360} src={post.data.heroImage} alt="" />
+					)}
+					<span class="post-card-title">
+						<span>{post.data.title}</span>
+					</span>
+					<span class="post-card-meta">
+						<FormattedDate date={post.data.pubDate} />
+						{post.data.tags.map((tag) => (
+							<span class="tag">{tag}</span>
+						))}
+					</span>
+				</a>
+			</li>
+		))
+	}
+</ul>

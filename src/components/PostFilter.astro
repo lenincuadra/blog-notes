@@ -15,7 +15,7 @@ interface Props {
 const { current } = Astro.props;
 ---
 
-<nav aria-label="Filter posts">
+<nav class="filter" aria-label="Filter posts">
 	Filter:{' '}
 	{
 		filters.map(({ label, href }, i) => (
@@ -32,7 +32,7 @@ const { current } = Astro.props;
 	{current !== '/' && (
 		<Fragment>
 			{' '}
-			<a href="/" aria-label="Remove filter" title="Remove filter">✕</a>
+			<a class="filter-clear" href="/" aria-label="Remove filter" title="Remove filter">✕</a>
 		</Fragment>
 	)}
 </nav>

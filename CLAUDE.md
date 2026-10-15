@@ -14,6 +14,14 @@ Un post no puede llamarse igual que una página del sitio. Hoy están reservados
 
 **Por qué:** los posts se publican en la raíz (`/mi-post/`). Un post `about.md` tendría la misma dirección que la página `/about/`. Astro publica la página, no el post, y solo muestra un aviso: el post aparece en la portada, pero su enlace abre la página About.
 
+## El diseño depende del sistema de diseño del portafolio
+
+Los colores (en claro y en oscuro), la fuente monoespaciada, los espacios, los radios y las animaciones vienen de `https://lenincuadra.com/styles/tokens.css`, que `src/components/BaseHead.astro` carga en cada página. No copies sus valores en el blog: usa sus variables (`--ink`, `--bg`, `--accent`, `--sp-4`…). Si el blog necesita un color propio, derívalo de esos tokens con `color-mix()`, como los `--notes-*` de `src/styles/global.css`, y comprueba que el texto tenga un contraste de 4.5:1 o más en claro y en oscuro. Si el portafolio renombra un token, hay que actualizarlo también aquí.
+
+El modo oscuro usa la misma clase que el portafolio: `theme-dark` en `<html>`. A diferencia del portafolio, el blog empieza siempre en claro y solo pasa a oscuro si el lector lo elige.
+
+**Por qué:** así el blog es de la familia del portafolio sin duplicar nada: si cambia un token del portafolio, el blog lo sigue. La única excepción es el favicon (`public/favicon.svg` y sus versiones PNG e ICO): un ícono no puede cargar archivos externos, así que lleva sus colores escritos.
+
 ## Fechas de los posts: formato `'Oct 15 2026'`
 
 En `pubDate` y `updatedDate`, la fecha se escribe como `'Oct 15 2026'`, nunca como `'2026-10-15'`.
