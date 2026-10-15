@@ -6,8 +6,11 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
-// Pages like About use this layout without tags, so tags are optional here.
-type Props = Omit<CollectionEntry<'blog'>['data'], 'tags'> & { tags?: string[] };
+// Pages like About use this layout without a date or tags, so both are optional here.
+type Props = Omit<CollectionEntry<'blog'>['data'], 'pubDate' | 'tags'> & {
+	pubDate?: Date;
+	tags?: string[];
+};
 
 const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro.props;
 ---
@@ -22,18 +25,20 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
 		<main>
 			<article class="post">
 				<header class="post-header">
-					<p class="post-meta">
-						<FormattedDate date={pubDate} />
-						{
-							updatedDate && (
-								<span>
-									Updated{' '}
-									<FormattedDate date={updatedDate} />
-								</span>
-							)
-						}
-						{tags.map((tag) => <span class="tag">{tag}</span>)}
-					</p>
+					{
+						pubDate && (
+							<p class="post-meta">
+								<FormattedDate date={pubDate} />
+								{updatedDate && (
+									<span>
+										Updated{' '}
+										<FormattedDate date={updatedDate} />
+									</span>
+								)}
+								{tags.map((tag) => <span class="tag">{tag}</span>)}
+							</p>
+						)
+					}
 					<h1 class="post-title">{title}</h1>
 				</header>
 				{heroImage && <Image class="post-hero" width={1020} height={510} src={heroImage} alt="" />}

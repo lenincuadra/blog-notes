@@ -52,22 +52,22 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 
 | Archivo | Lógica | Diseño |
 | --- | --- | --- |
-| `src/components/BaseHead.astro` | Metadatos SEO, URL canónica, Open Graph, RSS, sitemap, la carga de los tokens del portafolio y el script que aplica el tema guardado | Las fuentes, los favicons y la imagen por defecto para redes sociales (`blog-placeholder-1.jpg`) |
+| `src/components/BaseHead.astro` | Metadatos SEO, URL canónica, Open Graph, RSS, sitemap, la carga de los tokens del portafolio y el script que aplica el tema guardado | Las fuentes, los favicons y la imagen por defecto para redes sociales (`og-default.png`) |
 | `src/components/Header.astro` | El script del botón de tema, que cambia el tema y guarda la elección | La marca, el favicon dibujado en línea y el menú. Los estilos del botón vienen del portafolio |
 | `src/pages/index.astro` | La obtención de todos los posts (`getCollection`) y el orden por fecha | La estructura de la página |
 | `src/pages/practice.astro` | El filtro por la etiqueta `practice` y el orden por fecha | La estructura de la página |
 | `src/components/PostList.astro` | El enlace de cada post a `/<id-del-post>/` | La maquetación del listado |
 | `src/components/PostFilter.astro` | La lista de filtros, cuál está activo y el ✕ que lo quita | Su apariencia |
 | `src/components/HeaderLink.astro` | El cálculo del enlace activo | Su apariencia |
-| `src/layouts/BlogPost.astro` | Las props que recibe del post (incluidas las etiquetas) y el `<slot />`, donde se inserta el contenido | La presentación del post |
+| `src/layouts/BlogPost.astro` | Las props que recibe del post y el `<slot />`, donde se inserta el contenido. La fecha y las etiquetas son opcionales para páginas como About, que no muestran fecha | La presentación del post |
 
 ## Diseño
 
 - **`src/styles/global.css`:** todo el diseño Cuaderno: la hoja con puntos, el header, el listado, el filtro, la lectura del post y el footer. Al inicio están los tokens propios.
 - **`src/components/Header.astro` y `Footer.astro`:** la marca con su firma, el menú y el botón de tema; el footer con el aviso de copyright y los enlaces al portafolio y al RSS.
-- **`src/pages/about.astro`:** página "About" con el texto de ejemplo de la plantilla. Usa el mismo layout que los posts.
+- **`src/pages/about.astro`:** página "About", por ahora con un texto provisional. Usa el mismo layout que los posts, sin fecha. El texto definitivo es contenido, así que irá en `src/content/blog/` (ver `CLAUDE.md`).
 - **`public/`:** los favicons (`favicon.svg`, `favicon-96.png`, `favicon.ico` y `apple-touch-icon.png`).
-- **`src/assets/`:** imágenes de la plantilla. `BaseHead.astro` y `about.astro` las importan: si borras alguna, actualiza esos imports. Las imágenes de los posts no van aquí, sino junto a los posts (ver `CLAUDE.md`).
+- **`src/assets/`:** `og-default.png`, la imagen que se ve al compartir un enlace del blog (1200×630). `BaseHead.astro` la importa. Las imágenes de los posts no van aquí, sino junto a los posts (ver `CLAUDE.md`).
 
 ## Otros
 

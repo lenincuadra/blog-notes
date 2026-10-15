@@ -24,7 +24,7 @@ La lista completa de lo que el blog toma del portafolio, incluido lo poco que es
 
 El modo oscuro usa la misma clase que el portafolio: `theme-dark` en `<html>`. A diferencia del portafolio, el blog empieza siempre en claro y solo pasa a oscuro si el lector lo elige.
 
-**Por qué:** así el blog es de la familia del portafolio sin duplicar nada: si cambia un token del portafolio, el blog lo sigue. La única excepción es el favicon (`public/favicon.svg` y sus versiones PNG e ICO): un ícono no puede cargar archivos externos, así que lleva sus colores escritos.
+**Por qué:** así el blog es de la familia del portafolio sin duplicar nada: si cambia un token del portafolio, el blog lo sigue. Las únicas excepciones son dos imágenes, que llevan sus colores escritos porque una imagen no puede cargar archivos externos: el favicon (`public/favicon.svg` y sus versiones PNG e ICO) y la imagen para redes sociales (`src/assets/og-default.png`).
 
 ## Fechas de los posts: formato `'Oct 15 2026'`
 

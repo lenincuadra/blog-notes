@@ -4,4 +4,5 @@
 export const SITE_NAME = 'Notes';
 export const SITE_AUTHOR = 'Lenin Cuadra';
 export const SITE_TITLE = `${SITE_NAME} by ${SITE_AUTHOR}`;
-export const SITE_DESCRIPTION = 'Welcome to my website!';
+export const SITE_DESCRIPTION =
+	'A notebook by Lenin Cuadra: things learned, thought and made, in design and beyond.';

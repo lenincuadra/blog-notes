@@ -76,6 +76,7 @@ Casi todo se carga, pero esto se copió porque no hay otra forma. Hay que manten
   | Trazo (`--notes-mark-strong`) | `#bfa7d9` | `#432c5f` |
 
   `favicon-96.png`, `favicon.ico` y `apple-touch-icon.png` son exportaciones del favicon en claro. Si cambias los colores, hay que exportarlas de nuevo.
+- **Los colores de la imagen para redes**, en `src/assets/og-default.png`: es la imagen que se ve al compartir un enlace del blog. Por ser una imagen, también lleva los colores escritos: los del tema claro (`--bg`, `--ink`, `--ink-3`, el trazo y los puntos). Si cambias los colores o la marca, hay que generarla de nuevo.
 
 ## Nombres de clases
 
@@ -96,7 +97,7 @@ El blog carga `header.css`, así que cualquier elemento con una de sus clases re
 | Si en el portafolio… | Revisa en el blog |
 | --- | --- |
 | Renombras o borras un token | Corre la comprobación de abajo y actualiza `global.css` |
-| Cambias un color | El contraste de los `--notes-*` en los dos temas y los colores del favicon |
+| Cambias un color | El contraste de los `--notes-*` en los dos temas, el favicon y la imagen para redes |
 | Quitas DM Mono del `@import` de `tokens.css` | Agrégala a las fuentes de `BaseHead.astro` |
 | Cambias el HTML o los íconos del botón de tema | Cópialos de nuevo en `Header.astro` |
 | Cambias el reset de `button` en `base.css` | Cópialo en `global.css` |
