@@ -12,6 +12,8 @@ export default defineConfig({
 		// Code blocks follow the blog's light/dark toggle (see global.css)
 		shikiConfig: {
 			themes: { light: 'github-light', dark: 'github-dark' },
+			// Long lines wrap instead of scrolling sideways, so nothing is cut off on a phone
+			wrap: true,
 		},
 	},
 });
