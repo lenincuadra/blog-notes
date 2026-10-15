@@ -1,0 +1,9 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	// A static site: Cloudflare Workers serves the files that `npm run build` writes to dist/.
+	"name": "blog-notes",
+	"compatibility_date": "2026-10-13",
+	"assets": {
+		"directory": "./dist"
+	}
+}

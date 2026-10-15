@@ -39,7 +39,8 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 
 | Archivo | Para qué sirve |
 | --- | --- |
-| `package.json`, `package-lock.json` | Dependencias y comandos (`dev`, `build`, `preview`). El lock fija las versiones exactas. |
+| `package.json`, `package-lock.json` | Dependencias y comandos (`dev`, `build`, `preview`). El lock fija las versiones exactas. Wrangler, la herramienta de Cloudflare para publicar, solo se usa en desarrollo y al publicar. |
+| `wrangler.jsonc` | La configuración de Cloudflare Workers, que publica el sitio. Le dice que sirva tal cual los archivos de `dist/`, sin código propio en el servidor. El `name` tiene que coincidir con el nombre del proyecto en Cloudflare. |
 | `astro.config.mjs` | Configuración: URL del sitio (`site`, hoy `https://notes.lenincuadra.com`), integraciones (MDX y sitemap) y los temas claro y oscuro de los bloques de código. De `site` salen las URLs del RSS, del sitemap y las canónicas. |
 | `tsconfig.json` | TypeScript en modo strict (extiende `astro/tsconfigs/strict`). |
 | `src/content.config.ts` | Define la colección `blog`: dónde están los posts (`src/content/blog/`) y qué campos lleva su frontmatter. `title`, `description` y `pubDate` son obligatorios; `updatedDate`, `heroImage` y `tags`, opcionales (`tags` queda como lista vacía si se omite). Si un post no cumple, Astro muestra un error. |
@@ -77,4 +78,4 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 - **`docs/`:** documentación del proyecto: este archivo y `portafolio.md`, con todo lo que el blog toma del portafolio. Astro no la publica en el sitio.
 - **`.vscode/`:** recomienda las extensiones de Astro y MDX y permite iniciar el servidor desde el editor.
 - **`README.md`:** el de la plantilla, en inglés. Incluye la tabla de comandos.
-- **Carpetas generadas:** `node_modules/`, `.astro/` (tipos que genera Astro) y `dist/` (resultado de `npm run build`). Se crean solas y no se versionan.
+- **Carpetas generadas:** `node_modules/`, `.astro/` (tipos que genera Astro), `dist/` (resultado de `npm run build`) y `.wrangler/` (lo que guarda Wrangler al probar el sitio en local). Se crean solas y no se versionan.
