@@ -25,6 +25,8 @@ Como los posts van en la raíz, un post no puede llamarse igual que una página 
 
 ## El sistema de diseño
 
+La lista completa de lo que el blog toma del portafolio, y qué revisar cuando este cambia, está en `docs/portafolio.md`.
+
 - **Tokens del portafolio:** `BaseHead.astro` carga `https://lenincuadra.com/styles/tokens.css`. De ahí salen los colores en claro y en oscuro, la fuente monoespaciada (DM Mono), los espacios, los radios y las animaciones. El blog no copia esos valores: usa sus variables, así que sigue al portafolio cuando este cambia.
 - **Componentes del portafolio:** también carga `https://lenincuadra.com/styles/header.css`, de donde sale el botón de tema (sol y luna). El blog escribe el HTML del componente y el portafolio pone los estilos. El selector de idioma del portafolio (`.lang-switch`) queda disponible para cuando se agregue el cambio de idioma.
 - **Tokens propios (`--notes-*`):** están al inicio de `src/styles/global.css` y se derivan de los del portafolio con `color-mix()`: los puntos de la hoja, el resaltador y la etiqueta verde. Funcionan en los dos temas con un contraste de 4.5:1 o más.
@@ -72,7 +74,7 @@ Como los posts van en la raíz, un post no puede llamarse igual que una página 
 - **`src/content/blog/`:** los posts y sus imágenes. Por ahora hay dos posts de prueba: uno personal y otro con la etiqueta `practice`. Es la única carpeta con todos los derechos reservados (ver `LICENSE`).
 - **`CLAUDE.md`:** reglas que Claude Code lee al empezar cada sesión: dónde va el contenido, cómo depende el diseño del portafolio, cómo se escriben las fechas y qué nombres no pueden usar los posts.
 - **`LICENSE`:** el código está bajo la licencia MIT; el contenido de `src/content/blog/` tiene todos los derechos reservados.
-- **`docs/`:** documentación del proyecto, como este archivo. Astro no la publica en el sitio.
+- **`docs/`:** documentación del proyecto: este archivo y `portafolio.md`, con todo lo que el blog toma del portafolio. Astro no la publica en el sitio.
 - **`.vscode/`:** recomienda las extensiones de Astro y MDX y permite iniciar el servidor desde el editor.
 - **`README.md`:** el de la plantilla, en inglés. Incluye la tabla de comandos.
 - **Carpetas generadas:** `node_modules/`, `.astro/` (tipos que genera Astro) y `dist/` (resultado de `npm run build`). Se crean solas y no se versionan.

@@ -5,9 +5,12 @@
   https://lenincuadra.com/styles/tokens.css (colors for light and dark, the mono
   font, spacing, radii and motion) and styles/header.css (the theme toggle
   component). This file only adds what is Notes' own and derives its colors
-  from those tokens, so the blog follows the portfolio. Avoid the portfolio's
-  class names (site-header, nav-toggle, lang-switch...) unless you want its styles.
-  Dark mode uses the portfolio's class, html.theme-dark. Light is the default.
+  from those tokens, so the blog follows the portfolio. The header and footer
+  use the notes- prefix so they never match the portfolio's own (site-header,
+  site-footer). Avoid the other class names in header.css (nav-toggle,
+  lang-switch, skip-link...) unless you want their styles. Dark mode uses the
+  portfolio's class, html.theme-dark. Light is the default.
+  Everything the blog takes from the portfolio: docs/portafolio.md.
  */
 
 :root {
@@ -83,7 +86,7 @@ button {
 
 .notes-header,
 main,
-.site-footer {
+.notes-footer {
 	width: 100%;
 	max-width: var(--notes-page);
 	margin-inline: auto;
@@ -119,11 +122,11 @@ main,
 	fill: var(--notes-mark-strong);
 }
 
-/* One line: "Notes", then the signature with much less emphasis */
+/* One line: "Notes", then the signature with much less emphasis, centered on it */
 .brand-name {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: baseline;
+	align-items: center;
 	column-gap: 0.45rem;
 }
 
@@ -511,7 +514,7 @@ html.theme-dark .astro-code span {
 
 /* ---------- Footer ---------- */
 
-.site-footer {
+.notes-footer {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -525,21 +528,21 @@ html.theme-dark .astro-code span {
 	color: var(--ink-3);
 }
 
-.site-footer p {
+.notes-footer p {
 	margin: 0;
 }
 
-.site-footer-links {
+.notes-footer-links {
 	display: flex;
 	gap: var(--sp-5);
 }
 
-.site-footer a {
+.notes-footer a {
 	color: var(--ink-3);
 	text-decoration: none;
 }
 
-.site-footer a:hover {
+.notes-footer a:hover {
 	color: var(--accent-ink);
 }
 

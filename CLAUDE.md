@@ -18,7 +18,9 @@ Un post no puede llamarse igual que una página del sitio. Hoy están reservados
 
 Los colores (en claro y en oscuro), la fuente monoespaciada, los espacios, los radios y las animaciones vienen de `https://lenincuadra.com/styles/tokens.css`, que `src/components/BaseHead.astro` carga en cada página. No copies sus valores en el blog: usa sus variables (`--ink`, `--bg`, `--accent`, `--sp-4`…). Si el blog necesita un color propio, derívalo de esos tokens con `color-mix()`, como los `--notes-*` de `src/styles/global.css`, y comprueba que el texto tenga un contraste de 4.5:1 o más en claro y en oscuro. Si el portafolio renombra un token, hay que actualizarlo también aquí.
 
-Además carga `https://lenincuadra.com/styles/header.css` para usar el componente de tema del portafolio (`.theme-toggle`, con su marcado de sol y luna). Por eso el blog no debe usar otras clases del portafolio (`site-header`, `nav-toggle`, `lang-switch`…) salvo que quiera sus estilos.
+Además carga `https://lenincuadra.com/styles/header.css` para usar el componente de tema del portafolio (`.theme-toggle`, con su marcado de sol y luna). Por eso el blog no debe usar otras clases del portafolio (`site-header`, `nav-toggle`, `lang-switch`…) salvo que quiera sus estilos. El header y el footer del blog llevan el prefijo `notes-` para no coincidir con los del portafolio.
+
+La lista completa de lo que el blog toma del portafolio, incluido lo poco que está copiado, está en `docs/portafolio.md`. Si agregas, quitas o cambias un vínculo con el portafolio, actualízala.
 
 El modo oscuro usa la misma clase que el portafolio: `theme-dark` en `<html>`. A diferencia del portafolio, el blog empieza siempre en claro y solo pasa a oscuro si el lector lo elige.
 
