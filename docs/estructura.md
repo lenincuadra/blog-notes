@@ -13,15 +13,27 @@ Este documento describe la estructura del proyecto y separa la lógica técnica 
 
    Casi siempre conviene conservar la primera parte y reemplazar la segunda.
 
+## Las páginas del sitio
+
+| Dirección | Archivo | Qué muestra |
+| --- | --- | --- |
+| `/` | `src/pages/index.astro` | Todos los posts, con el filtro `All · practice` |
+| `/practice/` | `src/pages/practice.astro` | Solo los posts con la etiqueta `practice`. Es la dirección que enlaza el portafolio; el ✕ quita el filtro y lleva a la portada |
+| `/<id-del-post>/` | `src/pages/[...slug].astro` | Un post. Cada post tiene una sola dirección |
+| `/about/` | `src/pages/about.astro` | La página "About" |
+| `/rss.xml` | `src/pages/rss.xml.js` | El feed RSS con todos los posts |
+
+Como los posts van en la raíz, un post no puede llamarse igual que una página (ver `CLAUDE.md`).
+
 ## Lógica técnica: conservar
 
 | Archivo | Para qué sirve |
 | --- | --- |
 | `package.json`, `package-lock.json` | Dependencias y comandos (`dev`, `build`, `preview`). El lock fija las versiones exactas. |
-| `astro.config.mjs` | Configuración: URL del sitio, integraciones (MDX, sitemap) y fuentes. Cuando tengas dominio, cambia `site` (en la plantilla es `https://example.com`): de ahí salen las URLs del RSS, del sitemap y las canónicas. |
+| `astro.config.mjs` | Configuración: URL del sitio (`site`, hoy `https://notes.lenincuadra.com`), integraciones (MDX, sitemap) y fuentes. De `site` salen las URLs del RSS, del sitemap y las canónicas. |
 | `tsconfig.json` | TypeScript en modo strict (extiende `astro/tsconfigs/strict`). |
 | `src/content.config.ts` | Define la colección `blog`: dónde están los posts (`src/content/blog/`) y qué campos lleva su frontmatter. `title`, `description` y `pubDate` son obligatorios; `updatedDate`, `heroImage` y `tags`, opcionales (`tags` queda como lista vacía si se omite). Si un post no cumple, Astro muestra un error. |
-| `src/pages/blog/[...slug].astro` | Crea una página por cada post (`getStaticPaths`) y convierte su Markdown en HTML (`render`). Los corchetes indican una ruta dinámica: cada post obtiene su URL en `/blog/<id-del-post>/`. |
+| `src/pages/[...slug].astro` | Crea una página por cada post (`getStaticPaths`) y convierte su Markdown en HTML (`render`). Los corchetes indican una ruta dinámica: cada post obtiene su URL en `/<id-del-post>/`. |
 | `src/pages/rss.xml.js` | Genera el feed en `/rss.xml` a partir de la colección `blog`. |
 | `src/consts.ts` | Título y descripción del sitio. Los usan el `<head>`, el header y el RSS. Conserva el archivo y cambia los valores. |
 | `src/components/FormattedDate.astro` | Formatea las fechas. Por defecto usa `en-us`; si el blog va en español, se cambia aquí. |
@@ -31,15 +43,18 @@ Este documento describe la estructura del proyecto y separa la lógica técnica 
 | Archivo | Conservar | Reemplazar |
 | --- | --- | --- |
 | `src/components/BaseHead.astro` | Metadatos SEO, URL canónica, Open Graph, enlaces a RSS y sitemap | El import de `global.css`, la fuente y la imagen por defecto para redes sociales (`blog-placeholder-1.jpg`) |
-| `src/pages/blog/index.astro` | La obtención de los posts (`getCollection`) y el orden por fecha | La maquetación del listado y su `<style>` |
+| `src/pages/index.astro` | La obtención de todos los posts (`getCollection`) y el orden por fecha | La estructura de la página |
+| `src/pages/practice.astro` | El filtro por la etiqueta `practice` y el orden por fecha | La estructura de la página |
+| `src/components/PostList.astro` | El enlace de cada post a `/<id-del-post>/` | La maquetación del listado y su `<style>` |
+| `src/components/PostFilter.astro` | La lista de filtros, cuál está activo y el ✕ que lo quita | Su apariencia |
 | `src/components/HeaderLink.astro` | El cálculo del enlace activo | Sus estilos |
 | `src/layouts/BlogPost.astro` | Las props que recibe del post y el `<slot />`, donde se inserta el contenido | Toda la presentación del post |
 
 ## Diseño: reemplazar
 
 - **`src/styles/global.css`:** colores, tipografía y estilos base. Se basa en Bear Blog, con licencia MIT citada en un comentario del archivo; esa atribución deja de aplicar cuando se reemplace.
-- **`src/components/Header.astro` y `Footer.astro`:** navegación, íconos sociales de Astro y el texto "Your name here".
-- **`src/pages/index.astro` y `about.astro`:** portada y página "About" con texto de ejemplo. "About" usa el mismo layout que los posts, así que cambia cuando se rediseña `BlogPost.astro`.
+- **`src/components/Header.astro` y `Footer.astro`:** navegación (Home y About), íconos sociales de Astro y el texto "Your name here".
+- **`src/pages/about.astro`:** página "About" con texto de ejemplo. Usa el mismo layout que los posts, así que cambia cuando se rediseña `BlogPost.astro`.
 - **`src/assets/`:** imágenes de la plantilla y la fuente Atkinson. Astro procesa estos archivos al compilar (a diferencia de `public/`).
   - `BaseHead.astro` y `about.astro` importan estas imágenes: si borras alguna, actualiza esos imports.
   - La fuente se registra en el bloque `fonts` de `astro.config.mjs`.
@@ -49,7 +64,7 @@ Este documento describe la estructura del proyecto y separa la lógica técnica 
 ## Otros
 
 - **`src/content/blog/`:** los posts y sus imágenes. Por ahora hay dos posts de prueba: uno personal y otro con la etiqueta `practice`. Es la única carpeta con todos los derechos reservados (ver `LICENSE`).
-- **`CLAUDE.md`:** reglas que Claude Code lee al empezar cada sesión: dónde va el contenido y cómo se escriben las fechas.
+- **`CLAUDE.md`:** reglas que Claude Code lee al empezar cada sesión: dónde va el contenido, cómo se escriben las fechas y qué nombres no pueden usar los posts.
 - **`LICENSE`:** el código está bajo la licencia MIT; el contenido de `src/content/blog/` tiene todos los derechos reservados.
 - **`docs/`:** documentación del proyecto, como este archivo. Astro no la publica en el sitio.
 - **`.vscode/`:** recomienda las extensiones de Astro y MDX y permite iniciar el servidor desde el editor.

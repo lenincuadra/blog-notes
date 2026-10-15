@@ -1,0 +1,38 @@
+---
+// Filters for the post list. Each filter is its own page, so the portfolio
+// can link straight to a filtered view. To add a filter, list it here and
+// create its page in src/pages/.
+const filters = [
+	{ label: 'All', href: '/' },
+	{ label: 'practice', href: '/practice/' },
+];
+
+interface Props {
+	// URL of the filter being shown, e.g. '/' or '/practice/'
+	current: string;
+}
+
+const { current } = Astro.props;
+---
+
+<nav aria-label="Filter posts">
+	Filter:{' '}
+	{
+		filters.map(({ label, href }, i) => (
+			<Fragment>
+				{i > 0 && ' · '}
+				{href === current ? (
+					<strong aria-current="page">{label}</strong>
+				) : (
+					<a href={href}>{label}</a>
+				)}
+			</Fragment>
+		))
+	}
+	{current !== '/' && (
+		<Fragment>
+			{' '}
+			<a href="/" aria-label="Remove filter" title="Remove filter">✕</a>
+		</Fragment>
+	)}
+</nav>

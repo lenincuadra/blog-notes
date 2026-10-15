@@ -8,6 +8,12 @@ Todo el contenido que se cree para el blog va en `src/content/blog/`: los posts 
 
 Esta regla es solo para el contenido. El código sigue en sus carpetas de siempre: páginas en `src/pages/` (Astro solo crea rutas desde ahí), componentes en `src/components/` y estilos en `src/styles/`.
 
+## Nombres reservados para los posts
+
+Un post no puede llamarse igual que una página del sitio. Hoy están reservados `about` y `practice`, y cada página nueva que se cree en `src/pages/` suma su nombre a la lista. Si un post va a usar un nombre reservado, avisa y propone otro.
+
+**Por qué:** los posts se publican en la raíz (`/mi-post/`). Un post `about.md` tendría la misma dirección que la página `/about/`. Astro publica la página, no el post, y solo muestra un aviso: el post aparece en la portada, pero su enlace abre la página About.
+
 ## Fechas de los posts: formato `'Oct 15 2026'`
 
 En `pubDate` y `updatedDate`, la fecha se escribe como `'Oct 15 2026'`, nunca como `'2026-10-15'`.
