@@ -30,14 +30,15 @@ const { title, description, image = FallbackImage } = Astro.props;
 	} catch (e) {}
 </script>
 
-<!-- Design tokens come from the portfolio's design system; the blog depends on them -->
+<!-- The blog depends on the portfolio's design system: its tokens and its header components -->
 <link rel="preconnect" href="https://lenincuadra.com" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://lenincuadra.com/styles/tokens.css" />
+<link rel="stylesheet" href="https://lenincuadra.com/styles/header.css" />
 <link
 	rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=Newsreader:wght@300;700&family=Shantell+Sans:wght@400;600&display=swap"
+	href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Literata:ital,wght@0,400;0,600;1,400&family=Shantell+Sans:wght@400;600&display=swap"
 />
 
 <link rel="icon" href="/favicon.ico" sizes="48x48" />

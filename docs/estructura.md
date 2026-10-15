@@ -26,10 +26,11 @@ Como los posts van en la raíz, un post no puede llamarse igual que una página 
 ## El sistema de diseño
 
 - **Tokens del portafolio:** `BaseHead.astro` carga `https://lenincuadra.com/styles/tokens.css`. De ahí salen los colores en claro y en oscuro, la fuente monoespaciada (DM Mono), los espacios, los radios y las animaciones. El blog no copia esos valores: usa sus variables, así que sigue al portafolio cuando este cambia.
+- **Componentes del portafolio:** también carga `https://lenincuadra.com/styles/header.css`, de donde sale el botón de tema (sol y luna). El blog escribe el HTML del componente y el portafolio pone los estilos. El selector de idioma del portafolio (`.lang-switch`) queda disponible para cuando se agregue el cambio de idioma.
 - **Tokens propios (`--notes-*`):** están al inicio de `src/styles/global.css` y se derivan de los del portafolio con `color-mix()`: los puntos de la hoja, el resaltador y la etiqueta verde. Funcionan en los dos temas con un contraste de 4.5:1 o más.
-- **Tipografías propias:** Newsreader para la marca ("Notes" en negrita y "by Lenin Cuadra" en light), Shantell Sans para los títulos y las notas al margen, y Literata para el texto.
-- **Modo claro y oscuro:** el claro es el predeterminado. El botón del header agrega o quita la clase `theme-dark` (la misma del portafolio) y el navegador del lector recuerda su elección.
-- **Favicon:** una N de Newsreader cruzada por un trazo de resaltador, en `public/`. Es lo único con colores escritos, porque un ícono no puede cargar archivos externos.
+- **Tipografías propias:** Instrument Serif para la marca ("Notes" y, al lado, "by Lenin Cuadra" en cursiva y más pequeño), Shantell Sans para los títulos y las notas al margen, y Literata para el texto.
+- **Modo claro y oscuro:** el claro es el predeterminado. El botón de tema agrega o quita la clase `theme-dark` (la misma del portafolio) y el navegador del lector recuerda su elección.
+- **Favicon:** una n minúscula de Newsreader Bold cruzada por un trazo de resaltador, en `public/`. Pesa más que el nombre del header a propósito. Es lo único con colores escritos, porque un ícono no puede cargar archivos externos.
 - **Dentro de un post:** `<mark>` resalta una frase como con un marcador y `<aside>` se muestra como una nota al margen escrita a mano.
 
 ## Lógica técnica
@@ -50,7 +51,7 @@ Como los posts van en la raíz, un post no puede llamarse igual que una página 
 | Archivo | Lógica | Diseño |
 | --- | --- | --- |
 | `src/components/BaseHead.astro` | Metadatos SEO, URL canónica, Open Graph, RSS, sitemap, la carga de los tokens del portafolio y el script que aplica el tema guardado | Las fuentes, los favicons y la imagen por defecto para redes sociales (`blog-placeholder-1.jpg`) |
-| `src/components/Header.astro` | El botón que cambia el tema y guarda la elección | La marca, el favicon dibujado en línea y el menú |
+| `src/components/Header.astro` | El script del botón de tema, que cambia el tema y guarda la elección | La marca, el favicon dibujado en línea y el menú. Los estilos del botón vienen del portafolio |
 | `src/pages/index.astro` | La obtención de todos los posts (`getCollection`) y el orden por fecha | La estructura de la página |
 | `src/pages/practice.astro` | El filtro por la etiqueta `practice` y el orden por fecha | La estructura de la página |
 | `src/components/PostList.astro` | El enlace de cada post a `/<id-del-post>/` | La maquetación del listado |

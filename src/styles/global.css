@@ -3,14 +3,16 @@
 
   The blog depends on the portfolio's design system: BaseHead loads
   https://lenincuadra.com/styles/tokens.css (colors for light and dark, the mono
-  font, spacing, radii and motion). This file only adds what is Notes' own and
-  derives its colors from those tokens, so the blog follows the portfolio.
+  font, spacing, radii and motion) and styles/header.css (the theme toggle
+  component). This file only adds what is Notes' own and derives its colors
+  from those tokens, so the blog follows the portfolio. Avoid the portfolio's
+  class names (site-header, nav-toggle, lang-switch...) unless you want its styles.
   Dark mode uses the portfolio's class, html.theme-dark. Light is the default.
  */
 
 :root {
 	/* Notes' own typefaces */
-	--notes-brand: 'Newsreader', Georgia, serif;
+	--notes-brand: 'Instrument Serif', Georgia, serif;
 	--notes-hand: 'Shantell Sans', 'Segoe Print', 'Bradley Hand', system-ui, sans-serif;
 	--notes-body: 'Literata', Georgia, serif;
 
@@ -64,13 +66,22 @@ img {
 	height: auto;
 }
 
+/* Same button reset as the portfolio's base, which its components expect */
+button {
+	cursor: pointer;
+	border: none;
+	background: none;
+	font: inherit;
+	color: inherit;
+}
+
 :focus-visible {
 	outline: 2px solid var(--accent-ink);
 	outline-offset: 3px;
 	border-radius: var(--r-sm);
 }
 
-.site-header,
+.notes-header,
 main,
 .site-footer {
 	width: 100%;
@@ -80,7 +91,7 @@ main,
 
 /* ---------- Header: mark, "Notes" with its signature, nav ---------- */
 
-.site-header {
+.notes-header {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -93,67 +104,66 @@ main,
 .brand {
 	display: inline-flex;
 	align-items: center;
-	gap: var(--sp-3);
+	gap: var(--sp-2);
 	color: var(--ink);
 	text-decoration: none;
 }
 
 .brand-mark {
 	flex: none;
-	width: 2.5rem;
-	height: 2.5rem;
+	width: 2.25rem;
+	height: 2.25rem;
 }
 
 .brand-mark-bar {
 	fill: var(--notes-mark-strong);
 }
 
+/* One line: "Notes", then the signature with much less emphasis */
 .brand-name {
-	display: grid;
-	gap: 0.2rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	column-gap: 0.45rem;
 }
 
 .brand-title {
 	font-family: var(--notes-brand);
-	font-size: 1.875rem;
-	font-weight: 700;
+	font-size: 2rem;
+	font-weight: 400;
 	line-height: 1;
-	letter-spacing: -0.01em;
 }
 
 .brand-by {
 	font-family: var(--notes-brand);
-	font-size: 0.8125rem;
-	font-weight: 300;
-	line-height: 1.2;
-	letter-spacing: 0.01em;
+	font-size: 1rem;
+	font-style: italic;
+	line-height: 1;
 	color: var(--ink-3);
 }
 
-.site-nav {
+.notes-nav {
 	display: flex;
 	align-items: center;
-	gap: var(--sp-5);
+	gap: var(--sp-4);
 	font-family: var(--font-mono);
 	font-size: var(--text-xs);
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
 }
 
-.site-nav a,
-.theme-toggle {
+.notes-nav a {
 	padding-block: var(--sp-2);
 	color: var(--ink-3);
 	text-decoration: none;
 	transition: color var(--dur-fast);
 }
 
-.site-nav a:hover,
-.theme-toggle:hover {
+.notes-nav a:hover {
 	color: var(--accent-ink);
 }
 
-.site-nav a.active {
+.notes-nav a.active {
 	color: var(--ink);
 	text-decoration: underline;
 	text-decoration-color: var(--accent);
@@ -161,24 +171,7 @@ main,
 	text-underline-offset: 4px;
 }
 
-.theme-toggle {
-	padding-inline: 0;
-	border: 0;
-	background: none;
-	font: inherit;
-	letter-spacing: inherit;
-	text-transform: inherit;
-	cursor: pointer;
-}
-
-.theme-toggle-light,
-html.theme-dark .theme-toggle-dark {
-	display: none;
-}
-
-html.theme-dark .theme-toggle-light {
-	display: inline;
-}
+/* The theme toggle (.theme-toggle) is the portfolio's component: no styles here */
 
 /* ---------- Main ---------- */
 
