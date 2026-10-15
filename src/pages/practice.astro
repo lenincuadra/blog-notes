@@ -17,11 +17,6 @@ const posts = (await getCollection('blog', ({ data }) => data.tags.includes('pra
 <html lang="en">
 	<head>
 		<BaseHead title={`Practice | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-		</style>
 	</head>
 	<body>
 		<Header />
