@@ -100,7 +100,8 @@ main,
 	align-items: center;
 	justify-content: space-between;
 	gap: var(--sp-4);
-	padding-block: var(--sp-8) var(--sp-5);
+	/* The same space above and below, so the row sits centered over its line */
+	padding-block: var(--sp-6);
 	border-bottom: 1px solid var(--border);
 }
 
