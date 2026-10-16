@@ -60,7 +60,7 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 | `src/components/PostList.astro` | El enlace de cada post a `/<id-del-post>/` | La maquetación del listado |
 | `src/components/PostFilter.astro` | La lista de filtros, cuál está activo y el ✕ que lo quita | Su apariencia |
 | `src/components/HeaderLink.astro` | El cálculo del enlace activo | Su apariencia |
-| `src/layouts/BlogPost.astro` | Las props que recibe del post y el `<slot />`, donde se inserta el contenido. La fecha y las etiquetas son opcionales para páginas como About, que no muestran fecha | La presentación del post |
+| `src/layouts/BlogPost.astro` | Las props que recibe del post y el `<slot />`, donde se inserta el contenido. La fecha y las etiquetas son opcionales para páginas como About, que no muestran fecha. El título de la pestaña y de los buscadores suma el nombre del blog: "About \| Notes by Lenin Cuadra" | La presentación del post |
 
 ## Diseño
 

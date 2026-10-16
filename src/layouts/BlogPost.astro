@@ -5,6 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
 
 // Pages like About use this layout without a date or tags, so both are optional here.
 type Props = Omit<CollectionEntry<'blog'>['data'], 'pubDate' | 'tags'> & {
@@ -17,7 +18,8 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<!-- The full name in every title, as on the other pages: the tab and search results say whose notes these are -->
+		<BaseHead title={`${title} | ${SITE_TITLE}`} description={description} />
 	</head>
 
 	<body>
