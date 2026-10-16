@@ -90,7 +90,7 @@ El blog carga `header.css`, así que cualquier elemento con una de sus clases re
 ## Otros vínculos
 
 - El footer del blog enlaza al portafolio (`https://lenincuadra.com`).
-- En la fase 8, el portafolio enlazará a `https://notes.lenincuadra.com/practice/`. Si esa dirección cambia, el enlace del portafolio se rompe.
+- El footer del portafolio, en la portada y en los casos, enlaza a `https://notes.lenincuadra.com/practice/` con el texto "Writing" ("Escritos" en español). Si esa dirección cambia, ese enlace se rompe. Al compartirlo se ve la descripción propia de `/practice/` (`PRACTICE_DESCRIPTION` en `src/consts.ts`).
 
 ## Si cambias algo en el portafolio
 

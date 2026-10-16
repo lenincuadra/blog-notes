@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import PostFilter from '../components/PostFilter.astro';
 import PostList from '../components/PostList.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { PRACTICE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 // Only the posts tagged "practice". The portfolio links to this page.
 const posts = (await getCollection('blog', ({ data }) => data.tags.includes('practice'))).sort(
@@ -16,7 +16,7 @@ const posts = (await getCollection('blog', ({ data }) => data.tags.includes('pra
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Practice | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<BaseHead title={`Practice | ${SITE_TITLE}`} description={PRACTICE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />

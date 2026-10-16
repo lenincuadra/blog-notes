@@ -46,7 +46,7 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 | `src/content.config.ts` | Define la colección `blog`: dónde están los posts (`src/content/blog/`) y qué campos lleva su frontmatter. `title`, `description` y `pubDate` son obligatorios; `updatedDate`, `heroImage` y `tags`, opcionales (`tags` queda como lista vacía si se omite). Si un post no cumple, Astro muestra un error. |
 | `src/pages/[...slug].astro` | Crea una página por cada post (`getStaticPaths`) y convierte su Markdown en HTML (`render`). Los corchetes indican una ruta dinámica: cada post obtiene su URL en `/<id-del-post>/`. |
 | `src/pages/rss.xml.js` | Genera el feed en `/rss.xml` a partir de la colección `blog`. |
-| `src/consts.ts` | El nombre del blog (`SITE_NAME`), el autor (`SITE_AUTHOR`), el título completo y la descripción. Los usan el `<head>`, la marca, el footer y el RSS. |
+| `src/consts.ts` | El nombre del blog (`SITE_NAME`), el autor (`SITE_AUTHOR`), el título completo y las descripciones: la del sitio y la de `/practice/` (`PRACTICE_DESCRIPTION`), que es la que se ve al compartir el enlace del portafolio. Los usan el `<head>`, la marca, el footer y el RSS. |
 | `src/components/FormattedDate.astro` | Formatea las fechas. Por defecto usa `en-us`; si el blog va en español, se cambia aquí. |
 
 ## Lógica dentro de archivos de diseño
