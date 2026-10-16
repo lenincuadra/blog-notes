@@ -22,6 +22,15 @@ export const UI = {
 	seeOriginal: { en: 'See the original', es: 'Ver el original' },
 	seeTranslation: { en: 'See the translation', es: 'Ver la traducción' },
 	portfolio: { en: 'Portfolio', es: 'Portafolio' },
+	// The 404 page
+	notFoundTitle: { en: 'Someone tore this page out of the notebook.', es: 'Alguien arrancó esta página del cuaderno.' },
+	notFoundNote: { en: 'it was me', es: 'fui yo' },
+	notFoundText: {
+		en: 'Maybe it never existed, or it didn’t survive the edit. It happens in the best notebooks.',
+		es: 'Quizás nunca existió, o no sobrevivió a la edición. Pasa en los mejores cuadernos.',
+	},
+	notFoundRandom: { en: 'If you’re lost, here’s a random post!', es: 'Si estás perdido, ¡acá hay un post random!' },
+	notFoundHome: { en: 'Back to the notebook', es: 'Volver al cuaderno' },
 } satisfies Record<string, Text>;
 
 // Every post says the language it was written in: under the title of the original, and of its translation

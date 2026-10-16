@@ -1,0 +1,49 @@
+---
+// The page for an address that doesn't exist. Cloudflare serves it with a 404 status (see wrangler.jsonc).
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import UiText from '../components/UiText.astro';
+import { SITE_TITLE } from '../consts';
+import { UI } from '../i18n';
+
+// For "a random post": the addresses of every post, newest first. The script below picks one.
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.map((post) => `/${post.id}/`);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Page not found | ${SITE_TITLE}`} description="This page isn't in the notebook." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="not-found">
+				<!-- What's left of the torn-out page -->
+				<div class="not-found-tear" aria-hidden="true"></div>
+				<p class="not-found-code" aria-hidden="true"><span>404</span></p>
+				<h1 class="not-found-title"><UiText text={UI.notFoundTitle} /></h1>
+				<p class="not-found-note"><span aria-hidden="true">↖ </span><UiText text={UI.notFoundNote} /></p>
+				<p class="not-found-text"><UiText text={UI.notFoundText} /></p>
+				<div class="not-found-actions">
+					<a class="notes-button notes-button--primary" href={posts[0] ?? '/'} data-posts={JSON.stringify(posts)}>
+						<UiText text={UI.notFoundRandom} />
+					</a>
+					<a class="notes-button" href="/"><UiText text={UI.notFoundHome} /></a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<script>
+	// A random post every time the page opens. Without JavaScript, the button goes to the newest one.
+	const link = document.querySelector<HTMLAnchorElement>('[data-posts]');
+	const posts: string[] = JSON.parse(link?.dataset.posts ?? '[]');
+	if (link && posts.length) link.href = posts[Math.floor(Math.random() * posts.length)];
+</script>

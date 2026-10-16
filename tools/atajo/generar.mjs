@@ -19,7 +19,7 @@ const REPO = 'lenincuadra/blog-notes';
 const SITE = 'notes.lenincuadra.com';
 
 // Pages of the site: a post can't take their names (see CLAUDE.md). Keep both lists in sync.
-const RESERVED = ['about', 'personal', 'practice'];
+const RESERVED = ['404', 'about', 'personal', 'practice'];
 
 // ---------- Text rules ----------
 // Regular expressions in ICU syntax, the engine Shortcuts uses. Each step: [what it does, find, replace].

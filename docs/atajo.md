@@ -26,7 +26,7 @@ Publica una nota de Notas (Apple Notes) como post del blog, desde el iPhone o la
 ## Cuándo no publica
 
 - Si ya hay un post con esa dirección. El atajo nunca reemplaza un post: cambia el título de la nota, o edita ese post desde la Mac. Cada post tiene un solo original: si lo editas en su `.md`, no vuelvas a publicarlo desde Notas.
-- Si la dirección es la de una página del blog: `about`, `personal` o `practice` (ver `CLAUDE.md`).
+- Si la dirección es la de una página del blog: `404`, `about`, `personal` o `practice` (ver `CLAUDE.md`).
 - Si GitHub no acepta el token, por ejemplo porque venció.
 
 ## El token

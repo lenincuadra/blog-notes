@@ -21,6 +21,7 @@ Este documento describe la estructura del proyecto. Actualízalo cada vez que ca
 | `/<id-del-post>/` | `src/pages/[...slug].astro` | Un post. Cada post tiene una sola dirección |
 | `/about/` | `src/pages/about.astro` | La página "About" ("Acerca de" en español) |
 | `/rss.xml` | `src/pages/rss.xml.js` | El feed RSS con todos los posts |
+| Cualquier dirección que no existe | `src/pages/404.astro` | La página de error, con humor de cuaderno: "Alguien arrancó esta página del cuaderno", una nota al margen que dice "fui yo" y dos botones: "Si estás perdido, ¡acá hay un post random!", que lleva a un post al azar, y "Volver al cuaderno". Cloudflare la muestra con el estado 404 (ver `wrangler.jsonc`) |
 
 Como los posts van en la raíz, un post no puede llamarse igual que una página (ver `CLAUDE.md`).
 
@@ -51,7 +52,7 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 | Archivo | Para qué sirve |
 | --- | --- |
 | `package.json`, `package-lock.json` | Dependencias y comandos (`dev`, `build`, `preview`, y `atajo`, que arma el atajo para publicar desde Notas). El lock fija las versiones exactas. Wrangler, la herramienta de Cloudflare para publicar, solo se usa en desarrollo y al publicar. |
-| `wrangler.jsonc` | La configuración de Cloudflare Workers, que publica el sitio. Le dice que sirva tal cual los archivos de `dist/`, sin código propio en el servidor. El `name` tiene que coincidir con el nombre del proyecto en Cloudflare. |
+| `wrangler.jsonc` | La configuración de Cloudflare Workers, que publica el sitio. Le dice que sirva tal cual los archivos de `dist/`, sin código propio en el servidor, y que a una dirección que no existe le responda con la página 404 del blog. El `name` tiene que coincidir con el nombre del proyecto en Cloudflare. |
 | `astro.config.mjs` | Configuración: URL del sitio (`site`, hoy `https://notes.lenincuadra.com`), integraciones (MDX y sitemap) y los bloques de código: sus temas claro y oscuro, y que las líneas largas salten de línea en vez de cortarse en el celular. De `site` salen las URLs del RSS, del sitemap y las canónicas. |
 | `tsconfig.json` | TypeScript en modo strict (extiende `astro/tsconfigs/strict`). |
 | `src/content.config.ts` | Define la colección `blog`: dónde están los posts (`src/content/blog/`) y qué campos lleva su frontmatter. `title`, `description` y `pubDate` son obligatorios; `updatedDate`, `heroImage`, `tags` y `lang`, opcionales. `lang` es el idioma en que se escribió el post: `en` (inglés, si se omite) o `es` (español). `tags` dice si el post es `personal` o `practice`, y esa etiqueta se ve junto a la fecha. Si no lleva ninguna de las dos, el post es `personal`; no puede llevar las dos. Si un post no cumple, Astro muestra un error. También define la colección `translations`: las traducciones, con su título y su descripción. |

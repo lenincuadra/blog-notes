@@ -4,6 +4,8 @@
 	"name": "blog-notes",
 	"compatibility_date": "2026-10-13",
 	"assets": {
-		"directory": "./dist"
+		"directory": "./dist",
+		// An address that doesn't exist gets the blog's own 404 page (src/pages/404.astro), with a 404 status
+		"not_found_handling": "404-page"
 	}
 }
