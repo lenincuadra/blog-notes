@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { getTranslations, TAGS } from '../i18n';
+import { getTranslations, TAGS, WRITTEN_IN } from '../i18n';
 import FormattedDate from './FormattedDate.astro';
 import UiText from './UiText.astro';
 
@@ -40,6 +40,12 @@ const translations = await getTranslations();
 									<UiText text={TAGS[tag] ?? { en: tag, es: tag }} />
 								</span>
 							))}
+							<span class="lang-mark">
+								<span aria-hidden="true">{post.data.lang}</span>
+								<span class="visually-hidden">
+									<UiText text={WRITTEN_IN[post.data.lang]} />
+								</span>
+							</span>
 						</span>
 					</a>
 				</li>

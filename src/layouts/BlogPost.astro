@@ -7,7 +7,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import UiText from '../components/UiText.astro';
 import { SITE_TITLE } from '../consts';
-import { type Language, TAGS, TRANSLATED_FROM, UI } from '../i18n';
+import { type Language, TAGS, TRANSLATED_FROM, UI, WRITTEN_IN } from '../i18n';
 
 // Pages like About use this layout without a date, tags or language, so they are optional here.
 type Props = Omit<CollectionEntry<'blog'>['data'], 'pubDate' | 'tags' | 'lang'> & {
@@ -16,8 +16,9 @@ type Props = Omit<CollectionEntry<'blog'>['data'], 'pubDate' | 'tags' | 'lang'> 
 	lang?: Language;
 	// The translation, if there is one: its language and title. Its text goes in the "translation" slot.
 	translation?: { lang: Language; title: string };
-	// "Translated from…" under the title. About has its own text in each language, so it doesn't say it.
-	translationNote?: boolean;
+	// The line under the title that says the post's language: "Written in Spanish", or "Translated from
+	// Spanish · See the original" over a translation. About isn't a post, so it doesn't say it.
+	languageNote?: boolean;
 };
 
 const {
@@ -29,7 +30,7 @@ const {
 	tags = [],
 	lang = 'en',
 	translation,
-	translationNote = true,
+	languageNote = true,
 } = Astro.props;
 // With a translation the page carries both versions and shows the one in the reader's language (global.css).
 // Each one says its language, so screen readers and search engines read it right.
@@ -73,20 +74,28 @@ const version = (name: string) => (translation ? name : undefined);
 						)
 					}
 					{
-						translation && translationNote && (
-							<Fragment>
-								<p class="post-version" data-version="translation">
-									<UiText text={TRANSLATED_FROM[lang]} /> ·{' '}
-									<button type="button" data-show="original">
-										<UiText text={UI.seeOriginal} />
-									</button>
-								</p>
-								<p class="post-version" data-version="back">
-									<button type="button" data-show="">
-										<UiText text={UI.seeTranslation} />
-									</button>
-								</p>
-							</Fragment>
+						languageNote && (
+							<p class="post-version" data-version={version('original')}>
+								<UiText text={WRITTEN_IN[lang]} />
+								{translation && (
+									<span data-version="back">
+										{' '}·{' '}
+										<button type="button" data-show="">
+											<UiText text={UI.seeTranslation} />
+										</button>
+									</span>
+								)}
+							</p>
+						)
+					}
+					{
+						translation && languageNote && (
+							<p class="post-version" data-version="translation">
+								<UiText text={TRANSLATED_FROM[lang]} /> ·{' '}
+								<button type="button" data-show="original">
+									<UiText text={UI.seeOriginal} />
+								</button>
+							</p>
 						)
 					}
 				</header>

@@ -24,7 +24,11 @@ export const UI = {
 	portfolio: { en: 'Portfolio', es: 'Portafolio' },
 } satisfies Record<string, Text>;
 
-// Over a translation, by the language of its original
+// Every post says the language it was written in: under the title of the original, and of its translation
+export const WRITTEN_IN: Record<Language, Text> = {
+	en: { en: 'Written in English', es: 'Escrito en inglés' },
+	es: { en: 'Written in Spanish', es: 'Escrito en español' },
+};
 export const TRANSLATED_FROM: Record<Language, Text> = {
 	en: { en: 'Translated from English', es: 'Traducido del inglés' },
 	es: { en: 'Translated from Spanish', es: 'Traducido del español' },

@@ -314,6 +314,26 @@ main {
 	color: var(--accent-ink);
 }
 
+/* The language a post was written in, in the list: EN or ES, drawn like the switch in the header */
+.lang-mark {
+	padding: 0.05rem 0.4rem;
+	border: 1px solid var(--border);
+	border-radius: var(--r-sm);
+}
+
+/* Hidden on screen, read by screen readers */
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
 /* ---------- Post ---------- */
 
 .post {
