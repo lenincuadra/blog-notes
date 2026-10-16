@@ -40,10 +40,11 @@ Están al inicio de `global.css`. Se calculan con `color-mix()` a partir de los 
 | `--notes-dot` | 13% de `--ink` sobre `--bg` | Los puntos de la hoja |
 | `--notes-mark` | 24% de `--accent` sobre `--bg` | El resaltador: `<mark>` y el título de un post al pasar el cursor |
 | `--notes-mark-strong` | 45% de `--accent` sobre `--bg` | El trazo de la "n" del header y el borde de las citas |
-| `--notes-green` | 70% de `--accent-3` con `--ink` | Las etiquetas y las notas al margen |
-| `--notes-chip` | 14% de `--accent-3` sobre `--bg` | El fondo de las etiquetas |
+| `--notes-green` | 70% de `--accent-3` con `--ink` | La etiqueta `practice` y las notas al margen |
+| `--notes-chip-green` | 14% de `--accent-3` sobre `--bg` | El fondo de la etiqueta `practice` |
+| `--notes-chip-violet` | 14% de `--accent` sobre `--bg` | El fondo de la etiqueta `personal`, cuyo texto es `--accent-ink` |
 
-Con estos colores, el texto tiene un contraste de 4.5:1 o más en claro y en oscuro. Si cambias `--ink`, `--bg`, `--accent` o `--accent-3` en el portafolio, vuelve a comprobarlo.
+Con estos colores, el texto tiene un contraste de 4.5:1 o más en claro y en oscuro. Si cambias `--ink`, `--bg`, `--accent`, `--accent-ink` o `--accent-3` en el portafolio, vuelve a comprobarlo.
 
 ## El botón de tema
 

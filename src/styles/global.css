@@ -24,7 +24,9 @@
 	--notes-mark: color-mix(in srgb, var(--accent) 24%, var(--bg));
 	--notes-mark-strong: color-mix(in srgb, var(--accent) 45%, var(--bg));
 	--notes-green: color-mix(in srgb, var(--accent-3) 70%, var(--ink));
-	--notes-chip: color-mix(in srgb, var(--accent-3) 14%, var(--bg));
+	--notes-chip-green: color-mix(in srgb, var(--accent-3) 14%, var(--bg));
+	/* Its text is the portfolio's --accent-ink, the accent made for text in each theme */
+	--notes-chip-violet: color-mix(in srgb, var(--accent) 14%, var(--bg));
 
 	/* Layout: one column for the page, a narrower one for reading */
 	--notes-page: 44rem;
@@ -279,11 +281,17 @@ main {
 	color: var(--ink-3);
 }
 
+/* Practice in green; personal in the portfolio's violet, the color of the mark's highlighter */
 .tag {
 	padding: 0.1rem 0.55rem;
 	border-radius: 999px;
-	background: var(--notes-chip);
+	background: var(--notes-chip-green);
 	color: var(--notes-green);
+}
+
+.tag-personal {
+	background: var(--notes-chip-violet);
+	color: var(--accent-ink);
 }
 
 /* ---------- Post ---------- */

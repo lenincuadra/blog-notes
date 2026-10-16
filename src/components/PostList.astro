@@ -24,7 +24,7 @@ const { posts } = Astro.props;
 					<span class="post-card-meta">
 						<FormattedDate date={post.data.pubDate} />
 						{post.data.tags.map((tag) => (
-							<span class="tag">{tag}</span>
+							<span class={`tag tag-${tag}`}>{tag}</span>
 						))}
 					</span>
 				</a>
