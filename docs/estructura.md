@@ -44,7 +44,7 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 | `wrangler.jsonc` | La configuración de Cloudflare Workers, que publica el sitio. Le dice que sirva tal cual los archivos de `dist/`, sin código propio en el servidor. El `name` tiene que coincidir con el nombre del proyecto en Cloudflare. |
 | `astro.config.mjs` | Configuración: URL del sitio (`site`, hoy `https://notes.lenincuadra.com`), integraciones (MDX y sitemap) y los bloques de código: sus temas claro y oscuro, y que las líneas largas salten de línea en vez de cortarse en el celular. De `site` salen las URLs del RSS, del sitemap y las canónicas. |
 | `tsconfig.json` | TypeScript en modo strict (extiende `astro/tsconfigs/strict`). |
-| `src/content.config.ts` | Define la colección `blog`: dónde están los posts (`src/content/blog/`) y qué campos lleva su frontmatter. `title`, `description` y `pubDate` son obligatorios; `updatedDate`, `heroImage` y `tags`, opcionales (`tags` queda como lista vacía si se omite). Si un post no cumple, Astro muestra un error. |
+| `src/content.config.ts` | Define la colección `blog`: dónde están los posts (`src/content/blog/`) y qué campos lleva su frontmatter. `title`, `description` y `pubDate` son obligatorios; `updatedDate`, `heroImage`, `tags` y `lang`, opcionales. `lang` es el idioma en que se escribió el post: `en` (inglés, si se omite) o `es` (español). Si se omite `tags`, queda como lista vacía. Si un post no cumple, Astro muestra un error. |
 | `src/pages/[...slug].astro` | Crea una página por cada post (`getStaticPaths`) y convierte su Markdown en HTML (`render`). Los corchetes indican una ruta dinámica: cada post obtiene su URL en `/<id-del-post>/`. |
 | `src/pages/rss.xml.js` | Genera el feed en `/rss.xml` a partir de la colección `blog`. |
 | `src/consts.ts` | El nombre del blog (`SITE_NAME`), el autor (`SITE_AUTHOR`), el título completo y las descripciones: la del sitio y las de `/personal/` y `/practice/` (`PERSONAL_DESCRIPTION` y `PRACTICE_DESCRIPTION`). La de `/practice/` es la que se ve al compartir el enlace del portafolio. Los usan el `<head>`, la marca, el footer y el RSS. |
@@ -59,10 +59,10 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 | `src/pages/index.astro` | La obtención de todos los posts (`getCollection`) y el orden por fecha | La estructura de la página |
 | `src/pages/personal.astro` | El filtro (los posts sin la etiqueta `practice`) y el orden por fecha | La estructura de la página |
 | `src/pages/practice.astro` | El filtro por la etiqueta `practice` y el orden por fecha | La estructura de la página |
-| `src/components/PostList.astro` | El enlace de cada post a `/<id-del-post>/` | La maquetación del listado |
+| `src/components/PostList.astro` | El enlace de cada post a `/<id-del-post>/` y el idioma de cada título, para que uno en español se lea en español | La maquetación del listado |
 | `src/components/PostFilter.astro` | La lista de filtros (View All, Personal y Practice) y cuál está activo | Su apariencia |
 | `src/components/HeaderLink.astro` | El cálculo del enlace activo | Su apariencia |
-| `src/layouts/BlogPost.astro` | Las props que recibe del post y el `<slot />`, donde se inserta el contenido. La fecha y las etiquetas son opcionales para páginas como About, que no muestran fecha. El título de la pestaña y de los buscadores suma el nombre del blog: "About \| Notes by Lenin Cuadra" | La presentación del post |
+| `src/layouts/BlogPost.astro` | Las props que recibe del post y el `<slot />`, donde se inserta el contenido. La fecha, las etiquetas y el idioma son opcionales para páginas como About, que no muestran fecha. La página se declara en el idioma del post (`lang`), en inglés si no lo indica. El título de la pestaña y de los buscadores suma el nombre del blog: "About \| Notes by Lenin Cuadra" | La presentación del post |
 
 ## Diseño
 
@@ -74,8 +74,8 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 
 ## Otros
 
-- **`src/content/blog/`:** los posts y sus imágenes. Por ahora hay dos posts de prueba: uno personal y otro con la etiqueta `practice`. Es la única carpeta con todos los derechos reservados (ver `LICENSE`).
-- **`CLAUDE.md`:** reglas que Claude Code lee al empezar cada sesión: dónde va el contenido, cómo depende el diseño del portafolio, cómo se escriben las fechas y qué nombres no pueden usar los posts.
+- **`src/content/blog/`:** los posts y sus imágenes. El nombre de cada archivo es la dirección del post: `confidence.md` se publica en `/confidence/`. Es la única carpeta con todos los derechos reservados (ver `LICENSE`).
+- **`CLAUDE.md`:** reglas que Claude Code lee al empezar cada sesión: dónde va el contenido, qué nombres no pueden usar los posts, que los textos del autor solo se corrigen en sus errores, cómo depende el diseño del portafolio, que los textos no se usan para entrenar IA y cómo se escriben las fechas.
 - **`LICENSE`:** el código está bajo la licencia MIT; el contenido de `src/content/blog/` tiene todos los derechos reservados.
 - **`docs/`:** documentación del proyecto: este archivo y `portafolio.md`, con todo lo que el blog toma del portafolio. Astro no la publica en el sitio.
 - **`.vscode/`:** recomienda las extensiones de Astro y MDX y permite iniciar el servidor desde el editor.

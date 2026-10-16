@@ -15,6 +15,8 @@ const blog = defineCollection({
 			updatedDate: z.coerce.date().optional(),
 			// Defaults to an empty list when omitted
 			tags: z.array(z.string()).default([]),
+			// The language the post was written in. English when omitted
+			lang: z.enum(['en', 'es']).default('en'),
 			heroImage: z.optional(image()),
 		}),
 });

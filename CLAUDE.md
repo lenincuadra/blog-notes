@@ -14,6 +14,12 @@ Un post no puede llamarse igual que una página del sitio. Hoy están reservados
 
 **Por qué:** los posts se publican en la raíz (`/mi-post/`). Un post `about.md` tendría la misma dirección que la página `/about/`. Astro publica la página, no el post, y solo muestra un aviso: el post aparece en la portada, pero su enlace abre la página About.
 
+## Los textos del autor: solo se corrigen errores
+
+Al pasar una nota a un post, corrige solo los errores evidentes de ortografía, tipeo o gramática que se arreglan con un cambio mínimo, por ejemplo `apply` → `applies`, `unos momento` → `unos momentos` o un punto final que falta. No cambies palabras por otras que suenen mejor, no reordenes ni completes frases, no toques la puntuación que marca el ritmo y no unifiques el estilo. Si arreglar algo obliga a reescribir o a elegir entre varias formas de decirlo, o si no es seguro que sea un error, déjalo como está. Al terminar, dile al autor qué cambiaste y qué dejaste igual.
+
+**Por qué:** el autor prefiere que un texto quede mal escrito antes que alterado. Lo que se publica tiene que conservar su voz.
+
 ## El diseño depende del sistema de diseño del portafolio
 
 Los colores (en claro y en oscuro), la fuente monoespaciada, los espacios, los radios y las animaciones vienen de `https://lenincuadra.com/styles/tokens.css`, que `src/components/BaseHead.astro` carga en cada página. No copies sus valores en el blog: usa sus variables (`--ink`, `--bg`, `--accent`, `--sp-4`…). Si el blog necesita un color propio, derívalo de esos tokens con `color-mix()`, como los `--notes-*` de `src/styles/global.css`, y comprueba que el texto tenga un contraste de 4.5:1 o más en claro y en oscuro. Si el portafolio renombra un token, hay que actualizarlo también aquí.

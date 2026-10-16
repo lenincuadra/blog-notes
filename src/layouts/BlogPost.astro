@@ -7,16 +7,18 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 
-// Pages like About use this layout without a date or tags, so both are optional here.
-type Props = Omit<CollectionEntry<'blog'>['data'], 'pubDate' | 'tags'> & {
+// Pages like About use this layout without a date, tags or language, so they are optional here.
+type Props = Omit<CollectionEntry<'blog'>['data'], 'pubDate' | 'tags' | 'lang'> & {
 	pubDate?: Date;
 	tags?: string[];
+	lang?: CollectionEntry<'blog'>['data']['lang'];
 };
 
-const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro.props;
+// The page takes the post's language (English by default), so screen readers and search engines read it right
+const { title, description, pubDate, updatedDate, heroImage, tags = [], lang = 'en' } = Astro.props;
 ---
 
-<html lang="en">
+<html lang={lang}>
 	<head>
 		<!-- The full name in every title, as on the other pages: the tab and search results say whose notes these are -->
 		<BaseHead title={`${title} | ${SITE_TITLE}`} description={description} />

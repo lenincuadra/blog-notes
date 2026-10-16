@@ -18,7 +18,7 @@ const { posts } = Astro.props;
 					{post.data.heroImage && (
 						<Image class="post-card-image" width={720} height={360} src={post.data.heroImage} alt="" />
 					)}
-					<span class="post-card-title">
+					<span class="post-card-title" lang={post.data.lang}>
 						<span>{post.data.title}</span>
 					</span>
 					<span class="post-card-meta">
