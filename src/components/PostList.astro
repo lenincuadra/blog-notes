@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { getTranslations, TAGS, WRITTEN_IN } from '../i18n';
+import { getTranslations, ORIGINALLY_IN, TAGS } from '../i18n';
 import FormattedDate from './FormattedDate.astro';
 import UiText from './UiText.astro';
 
@@ -20,7 +20,7 @@ const translations = await getTranslations();
 			const translation = translations.get(post.id);
 			return (
 				<li>
-					<a class="post-card" href={`/${post.id}/`}>
+					<a class:list={['post-card', { 'post-card--practice': post.data.tags.includes('practice') }]} href={`/${post.id}/`}>
 						{post.data.heroImage && (
 							<Image class="post-card-image" width={720} height={360} src={post.data.heroImage} alt="" />
 						)}
@@ -42,8 +42,11 @@ const translations = await getTranslations();
 							))}
 							<span class="lang-mark">
 								<span aria-hidden="true">{post.data.lang}</span>
+								<span class="lang-mark-tip" aria-hidden="true">
+									<UiText text={ORIGINALLY_IN[post.data.lang]} />
+								</span>
 								<span class="visually-hidden">
-									<UiText text={WRITTEN_IN[post.data.lang]} />
+									<UiText text={ORIGINALLY_IN[post.data.lang]} />
 								</span>
 							</span>
 						</span>

@@ -40,6 +40,7 @@ Están al inicio de `global.css`. Se calculan con `color-mix()` a partir de los 
 | `--notes-dot` | 13% de `--ink` sobre `--bg` | Los puntos de la hoja |
 | `--notes-mark` | 24% de `--accent` sobre `--bg` | El resaltador: `<mark>` y el título de un post al pasar el cursor |
 | `--notes-mark-strong` | 45% de `--accent` sobre `--bg` | El trazo de la "n" del header y el borde de las citas |
+| `--notes-mark-green` | 24% de `--accent-3` sobre `--bg` | El resaltador del título de un post de práctica al pasar el cursor |
 | `--notes-green` | 70% de `--accent-3` con `--ink` | La etiqueta `practice` y las notas al margen |
 | `--notes-chip-green` | 14% de `--accent-3` sobre `--bg` | El fondo de la etiqueta `practice` |
 | `--notes-chip-violet` | 14% de `--accent` sobre `--bg` | El fondo de la etiqueta `personal`, cuyo texto es `--accent-ink` |

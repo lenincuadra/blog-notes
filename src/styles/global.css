@@ -23,6 +23,8 @@
 	--notes-dot: color-mix(in srgb, var(--ink) 13%, var(--bg));
 	--notes-mark: color-mix(in srgb, var(--accent) 24%, var(--bg));
 	--notes-mark-strong: color-mix(in srgb, var(--accent) 45%, var(--bg));
+	/* The highlighter in green, for practice posts: the same mix as --notes-mark */
+	--notes-mark-green: color-mix(in srgb, var(--accent-3) 24%, var(--bg));
 	--notes-green: color-mix(in srgb, var(--accent-3) 70%, var(--ink));
 	--notes-chip-green: color-mix(in srgb, var(--accent-3) 14%, var(--bg));
 	/* Its text is the portfolio's --accent-ink, the accent made for text in each theme */
@@ -45,25 +47,25 @@ html.theme-dark {
 	box-sizing: border-box;
 }
 
+/* The dotted sheet goes on <html> so it covers the whole window, however short the page is,
+   and it scrolls with the page (it is not fixed) */
 html {
 	background-color: var(--bg);
+	background-image: radial-gradient(circle, var(--notes-dot) 1px, transparent 1.3px);
+	background-size: 18px 18px;
+	transition: background-color var(--dur-mid) var(--ease-out);
 }
 
 body {
 	margin: 0;
 	padding-inline: max(var(--sp-4), env(safe-area-inset-left, 0px))
 		max(var(--sp-4), env(safe-area-inset-right, 0px));
-	background-color: var(--bg);
-	background-image: radial-gradient(circle, var(--notes-dot) 1px, transparent 1.3px);
-	background-size: 18px 18px;
 	color: var(--ink-2);
 	font-family: var(--notes-body);
 	font-size: 1.125rem;
 	line-height: 1.7;
 	-webkit-font-smoothing: antialiased;
-	transition:
-		background-color var(--dur-mid) var(--ease-out),
-		color var(--dur-mid) var(--ease-out);
+	transition: color var(--dur-mid) var(--ease-out);
 }
 
 img {
@@ -274,11 +276,20 @@ main {
 	text-wrap: balance;
 }
 
+/* On hover the title gets the highlighter, in the color of its tag: violet for personal, green for practice */
+.post-card {
+	--card-mark: var(--notes-mark);
+}
+
+.post-card--practice {
+	--card-mark: var(--notes-mark-green);
+}
+
 .post-card-title span {
 	-webkit-box-decoration-break: clone;
 	box-decoration-break: clone;
 	transition: background-size var(--dur-mid) var(--ease-out);
-	background: linear-gradient(transparent 58%, var(--notes-mark) 58%) no-repeat 0 0 / 0% 100%;
+	background: linear-gradient(transparent 58%, var(--card-mark) 58%) no-repeat 0 0 / 0% 100%;
 }
 
 .post-card:hover .post-card-title span,
@@ -316,9 +327,36 @@ main {
 
 /* The language a post was written in, in the list: EN or ES, drawn like the switch in the header */
 .lang-mark {
+	position: relative;
 	padding: 0.05rem 0.4rem;
 	border: 1px solid var(--border);
 	border-radius: var(--r-sm);
+}
+
+/* On hover, beside it, what EN or ES means. Touch screens have no hover: there, the post says it
+   under its title */
+.lang-mark-tip {
+	position: absolute;
+	top: 50%;
+	left: calc(100% + var(--sp-2));
+	padding: var(--sp-1) var(--sp-2);
+	border-radius: var(--r-sm);
+	background: var(--ink);
+	color: var(--bg);
+	letter-spacing: 0.02em;
+	text-transform: none;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	translate: -4px -50%;
+	transition:
+		opacity var(--dur-fast),
+		translate var(--dur-fast);
+}
+
+.lang-mark:hover .lang-mark-tip {
+	opacity: 1;
+	translate: 0 -50%;
 }
 
 /* Hidden on screen, read by screen readers */
