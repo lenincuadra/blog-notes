@@ -67,7 +67,7 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 - **`src/styles/global.css`:** todo el diseño Cuaderno: la hoja con puntos, el header, el listado, el filtro, la lectura del post y el footer. Al inicio están los tokens propios.
 - **`src/components/Header.astro` y `Footer.astro`:** la marca con su firma, el menú y el botón de tema; el footer con el aviso de copyright y los enlaces al portafolio y al RSS.
 - **`src/pages/about.astro`:** página "About", por ahora con un texto provisional. Usa el mismo layout que los posts, sin fecha. El texto definitivo es contenido, así que irá en `src/content/blog/` (ver `CLAUDE.md`).
-- **`public/`:** los favicons (`favicon.svg`, `favicon-96.png`, `favicon.ico` y `apple-touch-icon.png`).
+- **`public/`:** los favicons (`favicon.svg`, `favicon-96.png`, `favicon.ico` y `apple-touch-icon.png`) y `robots.txt`. Este último pide que los textos no se usen para entrenar IA, sin cerrarle el paso a los buscadores ni a los asistentes que leen un post para alguien. También indica dónde está el sitemap.
 - **`src/assets/`:** `og-default.png`, la imagen que se ve al compartir un enlace del blog (1200×630). `BaseHead.astro` la importa. Las imágenes de los posts no van aquí, sino junto a los posts (ver `CLAUDE.md`).
 
 ## Otros

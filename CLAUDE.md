@@ -26,6 +26,12 @@ El modo oscuro usa la misma clase que el portafolio: `theme-dark` en `<html>`. A
 
 **Por qué:** así el blog es de la familia del portafolio sin duplicar nada: si cambia un token del portafolio, el blog lo sigue. Las únicas excepciones son dos imágenes, que llevan sus colores escritos porque una imagen no puede cargar archivos externos: el favicon (`public/favicon.svg` y sus versiones PNG e ICO) y la imagen para redes sociales (`src/assets/og-default.png`).
 
+## Los textos no se usan para entrenar IA
+
+`public/robots.txt` pide que el contenido no se use para entrenar modelos de IA. Lo hace de dos formas: con la señal `ai-train=no` y bloqueando a los rastreadores que recolectan para entrenar (`GPTBot`, `ClaudeBot`, `Google-Extended`…). Si aparece un rastreador de entrenamiento nuevo, agrégalo ahí. No bloquees a los buscadores (`Googlebot`, `Bingbot`…) ni a los asistentes que leen una página para una persona (`ChatGPT-User`, `Claude-User`…): el blog quiere que lo encuentren.
+
+**Por qué:** el autor decidió que sus textos no entrenen IA, de acuerdo con el `LICENSE`, que reserva todos los derechos sobre el contenido. Ese bloqueo no se hace desde Cloudflare: allá se aplica a todo `lenincuadra.com`, portafolio incluido, y también bloquea a los rastreadores mixtos, los que buscan y entrenan a la vez.
+
 ## Fechas de los posts: formato `'Oct 15 2026'`
 
 En `pubDate` y `updatedDate`, la fecha se escribe como `'Oct 15 2026'`, nunca como `'2026-10-15'`.
