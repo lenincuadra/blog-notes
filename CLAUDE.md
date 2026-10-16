@@ -10,7 +10,7 @@ Esta regla es solo para el contenido. El código sigue en sus carpetas de siempr
 
 ## Nombres reservados para los posts
 
-Un post no puede llamarse igual que una página del sitio. Hoy están reservados `about`, `personal` y `practice`, y cada página nueva que se cree en `src/pages/` suma su nombre a la lista. Si un post va a usar un nombre reservado, avisa y propone otro.
+Un post no puede llamarse igual que una página del sitio. Hoy están reservados `about`, `personal` y `practice`, y cada página nueva que se cree en `src/pages/` suma su nombre a la lista. Si un post va a usar un nombre reservado, avisa y propone otro. La lista también está en el atajo de Notas (`RESERVED`, en `tools/atajo/generar.mjs`): si cambia, actualízala ahí y regenera el atajo (ver `docs/atajo.md`).
 
 **Por qué:** los posts se publican en la raíz (`/mi-post/`). Un post `about.md` tendría la misma dirección que la página `/about/`. Astro publica la página, no el post, y solo muestra un aviso: el post aparece en la portada, pero su enlace abre la página About.
 

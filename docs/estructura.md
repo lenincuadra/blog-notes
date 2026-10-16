@@ -40,7 +40,7 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 
 | Archivo | Para qué sirve |
 | --- | --- |
-| `package.json`, `package-lock.json` | Dependencias y comandos (`dev`, `build`, `preview`). El lock fija las versiones exactas. Wrangler, la herramienta de Cloudflare para publicar, solo se usa en desarrollo y al publicar. |
+| `package.json`, `package-lock.json` | Dependencias y comandos (`dev`, `build`, `preview`, y `atajo`, que arma el atajo para publicar desde Notas). El lock fija las versiones exactas. Wrangler, la herramienta de Cloudflare para publicar, solo se usa en desarrollo y al publicar. |
 | `wrangler.jsonc` | La configuración de Cloudflare Workers, que publica el sitio. Le dice que sirva tal cual los archivos de `dist/`, sin código propio en el servidor. El `name` tiene que coincidir con el nombre del proyecto en Cloudflare. |
 | `astro.config.mjs` | Configuración: URL del sitio (`site`, hoy `https://notes.lenincuadra.com`), integraciones (MDX y sitemap) y los bloques de código: sus temas claro y oscuro, y que las líneas largas salten de línea en vez de cortarse en el celular. De `site` salen las URLs del RSS, del sitemap y las canónicas. |
 | `tsconfig.json` | TypeScript en modo strict (extiende `astro/tsconfigs/strict`). |
@@ -49,6 +49,7 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 | `src/pages/rss.xml.js` | Genera el feed en `/rss.xml` a partir de la colección `blog`. |
 | `src/consts.ts` | El nombre del blog (`SITE_NAME`), el autor (`SITE_AUTHOR`), el título completo y las descripciones: la del sitio y las de `/personal/` y `/practice/` (`PERSONAL_DESCRIPTION` y `PRACTICE_DESCRIPTION`). La de `/practice/` es la que se ve al compartir el enlace del portafolio. Los usan el `<head>`, la marca, el footer y el RSS. |
 | `src/components/FormattedDate.astro` | Formatea las fechas. Por defecto usa `en-us`; si el blog va en español, se cambia aquí. |
+| `tools/atajo/` | El atajo "Publicar en el blog", que publica una nota de Notas como post: `generar.mjs` lo arma y `probar.js` prueba sus reglas de texto. Astro no lo usa. Cómo funciona: `docs/atajo.md`. |
 
 ## Lógica dentro de archivos de diseño
 
@@ -77,7 +78,7 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 - **`src/content/blog/`:** los posts y sus imágenes. El nombre de cada archivo es la dirección del post: `confidence.md` se publica en `/confidence/`. Es la única carpeta con todos los derechos reservados (ver `LICENSE`).
 - **`CLAUDE.md`:** reglas que Claude Code lee al empezar cada sesión: dónde va el contenido, qué nombres no pueden usar los posts, que los textos del autor solo se corrigen en sus errores, cómo depende el diseño del portafolio, que los textos no se usan para entrenar IA y cómo se escriben las fechas.
 - **`LICENSE`:** el código está bajo la licencia MIT; el contenido de `src/content/blog/` tiene todos los derechos reservados.
-- **`docs/`:** documentación del proyecto: este archivo y `portafolio.md`, con todo lo que el blog toma del portafolio. Astro no la publica en el sitio.
+- **`docs/`:** documentación del proyecto: este archivo; `portafolio.md`, con todo lo que el blog toma del portafolio, y `atajo.md`, cómo funciona el atajo para publicar desde Notas. Astro no la publica en el sitio.
 - **`.vscode/`:** recomienda las extensiones de Astro y MDX y permite iniciar el servidor desde el editor.
 - **`README.md`:** el de la plantilla, en inglés. Incluye la tabla de comandos.
-- **Carpetas generadas:** `node_modules/`, `.astro/` (tipos que genera Astro), `dist/` (resultado de `npm run build`) y `.wrangler/` (lo que guarda Wrangler al probar el sitio en local). Se crean solas y no se versionan.
+- **Carpetas generadas:** `node_modules/`, `.astro/` (tipos que genera Astro), `dist/` (resultado de `npm run build`), `.wrangler/` (lo que guarda Wrangler al probar el sitio en local) y `tools/atajo/salida/` (el atajo firmado que arma `npm run atajo`). Se crean solas y no se versionan.

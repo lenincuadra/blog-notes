@@ -4,6 +4,8 @@ dist/
 .astro/
 # local state of wrangler dev
 .wrangler/
+# the shortcut built by npm run atajo (it is installed, not published)
+tools/atajo/salida/
 
 # dependencies
 node_modules/
