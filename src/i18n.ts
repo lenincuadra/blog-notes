@@ -31,6 +31,16 @@ export const UI = {
 	},
 	notFoundRandom: { en: 'If you’re lost, here’s a random post!', es: 'Si estás perdido, ¡acá hay un post random!' },
 	notFoundHome: { en: 'Back to the notebook', es: 'Volver al cuaderno' },
+	// The open notebook (an experiment, /cuaderno/)
+	notebookTitle: { en: 'The open notebook', es: 'El cuaderno abierto' },
+	notebookIntro: {
+		en: 'An experiment: the notes as a notebook, two pages at a time. Turn the pages with the buttons or the arrow keys.',
+		es: 'Un experimento: las notas como un cuaderno, de a dos páginas. Pasa las páginas con los botones o con las flechas del teclado.',
+	},
+	notebookContents: { en: 'Contents', es: 'Índice' },
+	notebookPrevious: { en: 'Previous page', es: 'Página anterior' },
+	notebookNext: { en: 'Next page', es: 'Página siguiente' },
+	notebookPages: { en: 'Pages', es: 'Páginas' },
 } satisfies Record<string, Text>;
 
 // Every post says the language it was written in: under the title of the original, and of its translation
