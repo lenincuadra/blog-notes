@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { getTranslations } from '../i18n';
 import BlogPost from '../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
@@ -13,8 +14,15 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+// Its translation, if it has one: the page carries both and shows the one in the reader's language
+const translation = (await getTranslations()).get(post.id);
+const Translated = translation && (await render(translation.entry)).Content;
 ---
 
-<BlogPost {...post.data}>
+<BlogPost
+	{...post.data}
+	translation={translation && { lang: translation.lang, title: translation.entry.data.title }}
+>
 	<Content />
+	{Translated && <Translated slot="translation" />}
 </BlogPost>

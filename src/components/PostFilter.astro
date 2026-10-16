@@ -3,10 +3,13 @@
 // can link straight to a filtered view. View All is the front page, where
 // visitors arrive on their own; the portfolio links to Practice. To add a
 // filter, list it here and create its page in src/pages/.
+import { UI } from '../i18n';
+import UiText from './UiText.astro';
+
 const filters = [
-	{ label: 'View All', href: '/' },
-	{ label: 'Personal', href: '/personal/' },
-	{ label: 'Practice', href: '/practice/' },
+	{ label: UI.viewAll, href: '/' },
+	{ label: UI.personal, href: '/personal/' },
+	{ label: UI.practice, href: '/practice/' },
 ];
 
 interface Props {
@@ -17,15 +20,19 @@ interface Props {
 const { current } = Astro.props;
 ---
 
-<nav class="filter" aria-label="Filter posts">
+<nav class="filter" aria-label={UI.filter.en} data-aria-en={UI.filter.en} data-aria-es={UI.filter.es}>
 	{
 		filters.map(({ label, href }, i) => (
 			<Fragment>
 				{i > 0 && ' · '}
 				{href === current ? (
-					<strong aria-current="page">{label}</strong>
+					<strong aria-current="page">
+						<UiText text={label} />
+					</strong>
 				) : (
-					<a href={href}>{label}</a>
+					<a href={href}>
+						<UiText text={label} />
+					</a>
 				)}
 			</Fragment>
 		))

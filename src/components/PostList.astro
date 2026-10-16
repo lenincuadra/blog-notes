@@ -1,34 +1,49 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import { getTranslations, TAGS } from '../i18n';
 import FormattedDate from './FormattedDate.astro';
+import UiText from './UiText.astro';
 
 interface Props {
 	posts: CollectionEntry<'blog'>[];
 }
 
 const { posts } = Astro.props;
+// A translated post shows its title in the reader's language: both titles are in the page
+const translations = await getTranslations();
 ---
 
 <ul class="post-list">
 	{
-		posts.map((post) => (
-			<li>
-				<a class="post-card" href={`/${post.id}/`}>
-					{post.data.heroImage && (
-						<Image class="post-card-image" width={720} height={360} src={post.data.heroImage} alt="" />
-					)}
-					<span class="post-card-title" lang={post.data.lang}>
-						<span>{post.data.title}</span>
-					</span>
-					<span class="post-card-meta">
-						<FormattedDate date={post.data.pubDate} />
-						{post.data.tags.map((tag) => (
-							<span class={`tag tag-${tag}`}>{tag}</span>
-						))}
-					</span>
-				</a>
-			</li>
-		))
+		posts.map((post) => {
+			const translation = translations.get(post.id);
+			return (
+				<li>
+					<a class="post-card" href={`/${post.id}/`}>
+						{post.data.heroImage && (
+							<Image class="post-card-image" width={720} height={360} src={post.data.heroImage} alt="" />
+						)}
+						<span class="post-card-title">
+							{translation ? (
+								<Fragment>
+									<span data-ui={post.data.lang} lang={post.data.lang}>{post.data.title}</span><span data-ui={translation.lang} lang={translation.lang}>{translation.entry.data.title}</span>
+								</Fragment>
+							) : (
+								<span lang={post.data.lang}>{post.data.title}</span>
+							)}
+						</span>
+						<span class="post-card-meta">
+							<FormattedDate date={post.data.pubDate} />
+							{post.data.tags.map((tag) => (
+								<span class={`tag tag-${tag}`}>
+									<UiText text={TAGS[tag] ?? { en: tag, es: tag }} />
+								</span>
+							))}
+						</span>
+					</a>
+				</li>
+			);
+		})
 	}
 </ul>

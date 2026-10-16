@@ -1,6 +1,8 @@
 ---
 import { SITE_AUTHOR, SITE_NAME, SITE_TITLE } from '../consts';
+import { UI } from '../i18n';
 import HeaderLink from './HeaderLink.astro';
+import UiText from './UiText.astro';
 ---
 
 <header class="notes-header">
@@ -24,14 +26,26 @@ import HeaderLink from './HeaderLink.astro';
 			<span class="brand-by">by {SITE_AUTHOR}</span>
 		</span>
 	</a>
-	<nav class="notes-nav" aria-label="Main">
-		<HeaderLink href="/about">About</HeaderLink>
-		<!-- The portfolio's theme toggle; its styles come from the portfolio's header.css -->
+	<nav class="notes-nav" aria-label={UI.mainNav.en} data-aria-en={UI.mainNav.en} data-aria-es={UI.mainNav.es}>
+		<HeaderLink href="/about"><UiText text={UI.about} /></HeaderLink>
+		<!-- The portfolio's language switch and theme toggle; their styles come from its header.css -->
+		<div
+			class="lang-switch"
+			role="group"
+			aria-label={UI.language.en}
+			data-aria-en={UI.language.en}
+			data-aria-es={UI.language.es}
+		>
+			<button class="lang-switch__btn" type="button" data-lang="en" lang="en">EN</button>
+			<button class="lang-switch__btn" type="button" data-lang="es" lang="es">ES</button>
+		</div>
 		<button
 			class="theme-toggle"
 			id="theme-toggle"
 			type="button"
-			aria-label="Toggle dark mode"
+			aria-label={UI.darkMode.en}
+			data-aria-en={UI.darkMode.en}
+			data-aria-es={UI.darkMode.es}
 			aria-pressed="false"
 		>
 			<svg
@@ -65,6 +79,39 @@ import HeaderLink from './HeaderLink.astro';
 		</button>
 	</nav>
 </header>
+
+<!--
+	EN/ES. The texts follow the language by themselves (global.css); this marks the active button and
+	sets the labels screen readers hear. It runs right here, so the switch never shows the wrong button,
+	and again when the whole page is in.
+-->
+<script is:inline>
+	(() => {
+		const root = document.documentElement;
+		const apply = (lang) => {
+			root.dataset.uiLang = lang;
+			root.lang = lang;
+			document.querySelectorAll('.lang-switch__btn').forEach((button) => {
+				const active = button.dataset.lang === lang;
+				button.classList.toggle('lang-switch__btn--active', active);
+				button.setAttribute('aria-pressed', String(active));
+			});
+			document.querySelectorAll('[data-aria-en]').forEach((element) => {
+				element.setAttribute('aria-label', lang === 'es' ? element.dataset.ariaEs : element.dataset.ariaEn);
+			});
+		};
+		apply(root.dataset.uiLang || 'en');
+		document.addEventListener('DOMContentLoaded', () => apply(root.dataset.uiLang || 'en'));
+		document.querySelectorAll('.lang-switch__btn').forEach((button) => {
+			button.addEventListener('click', () => {
+				try {
+					localStorage.setItem('lang', button.dataset.lang);
+				} catch (e) {}
+				apply(button.dataset.lang);
+			});
+		});
+	})();
+</script>
 
 <script>
 	// Light is the default. The reader's choice is saved so the next visit keeps it.

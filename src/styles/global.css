@@ -86,6 +86,26 @@ button {
 	border-radius: var(--r-sm);
 }
 
+/* ---------- Languages (see src/i18n.ts) ---------- */
+
+/* The interface in the reader's language: the page carries both texts, and html[data-ui-lang], set in
+   BaseHead before the page shows, hides the other one. Without it, English. */
+html:not([data-ui-lang='es']) [data-ui='es'],
+html[data-ui-lang='es'] [data-ui='en'] {
+	display: none;
+}
+
+/* A translated post carries both versions and shows the one in the reader's language. "See the
+   original" (data-show on the article) shows the original instead, and offers "See the translation". */
+html:not([data-ui-lang='en']) .post[data-translation='en'] :is([data-version='translation'], [data-version='back']),
+html:not([data-ui-lang='es']) .post[data-translation='es'] :is([data-version='translation'], [data-version='back']),
+html[data-ui-lang='en'] .post[data-translation='en']:not([data-show='original']) [data-version='original'],
+html[data-ui-lang='es'] .post[data-translation='es']:not([data-show='original']) [data-version='original'],
+.post[data-show='original'] [data-version='translation'],
+.post:not([data-show='original']) [data-version='back'] {
+	display: none;
+}
+
 .notes-header,
 main,
 .notes-footer {
@@ -315,6 +335,25 @@ main {
 	line-height: 1.12;
 	color: var(--ink);
 	text-wrap: balance;
+}
+
+/* "Translated from Spanish · See the original", under the title of a translated post */
+.post-version {
+	margin: 0;
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--ink-3);
+}
+
+.post-version button {
+	padding: 0;
+	letter-spacing: inherit;
+	text-transform: inherit;
+	color: var(--accent-ink);
+	text-decoration: underline;
+	text-underline-offset: 3px;
 }
 
 .post-hero {

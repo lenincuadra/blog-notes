@@ -4,10 +4,22 @@
 import Layout from '../layouts/BlogPost.astro';
 ---
 
-<Layout title="About" description="About Lenin Cuadra and these notes.">
+<Layout
+	title="About"
+	description="About Lenin Cuadra and these notes."
+	translation={{ lang: 'es', title: 'Acerca de' }}
+	translationNote={false}
+>
 	<p>Notes is where I write things down: what I learn, think and make, in design and beyond.</p>
 	<p>
 		This page is still being written. Meanwhile, you can find more about me and my work at{' '}
 		<a href="https://lenincuadra.com">lenincuadra.com</a>.
 	</p>
+	<Fragment slot="translation">
+		<p>Notes es donde anoto las cosas: lo que aprendo, pienso y hago, en el diseño y más allá.</p>
+		<p>
+			Todavía estoy escribiendo esta página. Mientras tanto, puedes conocer más sobre mí y mi trabajo en{' '}
+			<a href="https://lenincuadra.com">lenincuadra.com</a>.
+		</p>
+	</Fragment>
 </Layout>

@@ -30,6 +30,28 @@ const { title, description, image = FallbackImage } = Astro.props;
 	} catch (e) {}
 </script>
 
+<!--
+	Language of the interface, before the page shows: the one in the link (?lang=, as the portfolio sends
+	it), else the one the reader chose before, else the browser's. EN/ES in the header changes it.
+-->
+<script is:inline>
+	(() => {
+		const url = new URL(location.href);
+		let lang = url.searchParams.get('lang');
+		try {
+			if (lang === 'en' || lang === 'es') localStorage.setItem('lang', lang);
+			else lang = localStorage.getItem('lang');
+		} catch (e) {}
+		if (url.searchParams.has('lang')) {
+			url.searchParams.delete('lang');
+			history.replaceState(history.state, '', url);
+		}
+		if (lang !== 'en' && lang !== 'es') lang = /^es\b/i.test(navigator.language || '') ? 'es' : 'en';
+		document.documentElement.dataset.uiLang = lang;
+		document.documentElement.lang = lang;
+	})();
+</script>
+
 <!-- The blog depends on the portfolio's design system: its tokens and its header components -->
 <link rel="preconnect" href="https://lenincuadra.com" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />

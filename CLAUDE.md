@@ -20,6 +20,14 @@ Al pasar una nota a un post, corrige solo los errores evidentes de ortografía, 
 
 **Por qué:** el autor prefiere que un texto quede mal escrito antes que alterado. Lo que se publica tiene que conservar su voz.
 
+## Idiomas: la interfaz en inglés y en español, cada post en el suyo
+
+Todo texto de la interfaz (menú, filtros, fechas, etiquetas, avisos, etiquetas para lectores de pantalla) va en los dos idiomas en `src/i18n.ts` y se muestra con `UiText`. No escribas un texto de la interfaz en un solo idioma.
+
+Cada post se publica en el idioma en que se escribió (`lang`). Su traducción, si la tiene, va en `src/content/blog/translations/<idioma>/<id-del-original>.md`, con su `title` y su `description`. Las traducciones las propone Claude como borrador y el autor las revisa: no publiques ninguna sin su visto bueno. Al traducir, el original no se toca, y la traducción dice lo mismo que él, sin mejorarlo. Cómo funciona todo: `docs/estructura.md`, sección "Idiomas".
+
+**Por qué:** el lector ve el blog en su idioma, pero cada texto conserva su original. Cómo suena en el otro idioma lo decide el autor.
+
 ## El diseño depende del sistema de diseño del portafolio
 
 Los colores (en claro y en oscuro), la fuente monoespaciada, los espacios, los radios y las animaciones vienen de `https://lenincuadra.com/styles/tokens.css`, que `src/components/BaseHead.astro` carga en cada página. No copies sus valores en el blog: usa sus variables (`--ink`, `--bg`, `--accent`, `--sp-4`…). Si el blog necesita un color propio, derívalo de esos tokens con `color-mix()`, como los `--notes-*` de `src/styles/global.css`, y comprueba que el texto tenga un contraste de 4.5:1 o más en claro y en oscuro. Si el portafolio renombra un token, hay que actualizarlo también aquí.

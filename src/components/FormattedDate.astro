@@ -1,4 +1,8 @@
 ---
+// A date in both languages: "Oct 16, 2026" in English and "16 oct 2026" in Spanish (see src/i18n.ts)
+import { formatDate } from '../i18n';
+import UiText from './UiText.astro';
+
 interface Props {
 	date: Date;
 }
@@ -6,10 +10,4 @@ interface Props {
 const { date } = Astro.props;
 ---
 
-<time datetime={date.toISOString()}>
-	{date.toLocaleDateString('en-us', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-	})}
-</time>
+<time datetime={date.toISOString()}><UiText text={formatDate(date)} /></time>

@@ -1,0 +1,20 @@
+---
+// A text of the interface in both languages. The page carries both and shows the reader's (global.css).
+import type { Text } from '../i18n';
+
+interface Props {
+	text: Text;
+}
+
+const { text } = Astro.props;
+---
+
+{
+	text.en === text.es ? (
+		text.en
+	) : (
+		<Fragment>
+			<span data-ui="en" lang="en">{text.en}</span><span data-ui="es" lang="es">{text.es}</span>
+		</Fragment>
+	)
+}

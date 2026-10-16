@@ -1,5 +1,7 @@
 ---
 import { SITE_AUTHOR } from '../consts';
+import { UI } from '../i18n';
+import UiText from './UiText.astro';
 
 const today = new Date();
 ---
@@ -7,7 +9,7 @@ const today = new Date();
 <footer class="notes-footer">
 	<p>&copy; {today.getFullYear()} {SITE_AUTHOR}</p>
 	<p class="notes-footer-links">
-		<a href="https://lenincuadra.com">Portfolio</a>
+		<a href="https://lenincuadra.com"><UiText text={UI.portfolio} /></a>
 		<a href="/rss.xml">RSS</a>
 	</p>
 </footer>

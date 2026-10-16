@@ -11,7 +11,7 @@ Aquí está cada vínculo y qué revisar cuando cambias el portafolio. Actualiza
 | Archivo | Qué trae |
 | --- | --- |
 | `https://lenincuadra.com/styles/tokens.css` | Los tokens: colores en claro y en oscuro, la fuente monoespaciada, los tamaños de texto, los espacios, los radios y las animaciones. Con su `@import` llega también la fuente DM Mono. |
-| `https://lenincuadra.com/styles/header.css` | Los estilos del botón de tema (ver más abajo). |
+| `https://lenincuadra.com/styles/header.css` | Los estilos del botón de tema y del selector de idioma (ver más abajo). |
 
 - **Cuándo llegan los cambios:** en cuanto publicas el portafolio. Un navegador que ya tenía guardados estos archivos puede tardar hasta 4 horas en ver la versión nueva.
 - **Si el portafolio no responde:** el blog se sigue leyendo, pero sin sus colores, sus espacios ni la fuente monoespaciada.
@@ -62,11 +62,17 @@ El script sigue las convenciones del portafolio:
 - La elección se guarda con la misma clave, `theme`, y los mismos valores, `dark` o `light`.
 - Aun así, la elección no se comparte entre los dos sitios: el navegador guarda por separado los datos de `lenincuadra.com` y los de `notes.lenincuadra.com`.
 
+## El selector de idioma
+
+Es el EN/ES del portafolio (`.lang-switch`). Como el botón de tema, sus estilos vienen de `header.css` y su HTML está **copiado** en `Header.astro`; el botón activo lleva la misma clase, `lang-switch__btn--active`.
+
+El script es propio del blog, porque el idioma se elige distinto. El portafolio empieza siempre en inglés; el blog empieza en el idioma del navegador, o en el del portafolio si el lector viene de allá. La elección se guarda con la clave `lang` (el portafolio usa `portfolio-lang`, y de todas formas cada sitio guarda sus datos por separado).
+
 ## Lo que está copiado
 
 Casi todo se carga, pero esto se copió porque no hay otra forma. Hay que mantenerlo a mano:
 
-- **El HTML del botón de tema**, en `Header.astro` (ver arriba).
+- **El HTML del botón de tema y del selector de idioma**, en `Header.astro` (ver arriba).
 - **El reset de `button`**, al inicio de `global.css`. Es el mismo de `base.css` del portafolio, que el blog no carga. El botón de tema lo necesita: sin borde ni fondo, con la fuente y el color heredados.
 - **Los colores del favicon**, en `public/favicon.svg`. Un ícono no puede cargar archivos externos, así que lleva los valores escritos. Son los de `--bg`, `--ink` y `--notes-mark-strong` en cada tema:
 
@@ -83,15 +89,15 @@ Casi todo se carga, pero esto se copió porque no hay otra forma. Hay que manten
 
 El blog carga `header.css`, así que cualquier elemento con una de sus clases recibe los estilos del portafolio:
 
-- El blog usa a propósito `theme-toggle`, `icon-moon` e `icon-sun`.
-- No uses `site-header…`, `nav-toggle`, `lang-switch…` ni `skip-link`, salvo que quieras sus estilos.
+- El blog usa a propósito `theme-toggle`, `icon-moon`, `icon-sun`, `lang-switch`, `lang-switch__btn` y `lang-switch__btn--active`.
+- No uses `site-header…`, `nav-toggle` ni `skip-link`, salvo que quieras sus estilos.
 - Por eso el header y el footer del blog se llaman `notes-header` y `notes-footer`. El portafolio usa `site-header` y `site-footer`.
-- Para la fase 11 (idiomas) está disponible el selector de idioma del portafolio, `lang-switch`. Funcionaría igual que el botón de tema: sus estilos se cargarían y su HTML habría que copiarlo.
 
 ## Otros vínculos
 
 - El footer del blog enlaza al portafolio (`https://lenincuadra.com`).
 - El footer del portafolio, en la portada y en los casos, enlaza a `https://notes.lenincuadra.com/practice/` con el texto "Writing" ("Escritos" en español). Si esa dirección cambia, ese enlace se rompe. Al compartirlo se ve la descripción propia de `/practice/` (`PRACTICE_DESCRIPTION` en `src/consts.ts`).
+- Ese enlace le suma el idioma activo del portafolio, `?lang=en` o `?lang=es`, para que el blog se abra en el mismo idioma. Lo hacen `js/app.js` (`renderSiteWide`) en la portada y `applyLang` en `cases/case-v3.html`. El blog lo lee en `BaseHead.astro`, lo guarda y lo quita de la dirección.
 
 ## Si cambias algo en el portafolio
 
@@ -101,6 +107,8 @@ El blog carga `header.css`, así que cualquier elemento con una de sus clases re
 | Cambias un color | El contraste de los `--notes-*` en los dos temas, el favicon y la imagen para redes |
 | Quitas DM Mono del `@import` de `tokens.css` | Agrégala a las fuentes de `BaseHead.astro` |
 | Cambias el HTML o los íconos del botón de tema | Cópialos de nuevo en `Header.astro` |
+| Cambias el HTML o las clases del selector de idioma | Cópialos de nuevo en `Header.astro` y revisa su script |
+| Cambias cómo arma el enlace a "Writing" | Que siga pasando `?lang=`, que lee `BaseHead.astro` |
 | Cambias el reset de `button` en `base.css` | Cópialo en `global.css` |
 | Mueves o renombras `tokens.css` o `header.css` | Las direcciones en `BaseHead.astro` |
 | Cambias la clase `theme-dark` o la clave `theme` | Los scripts de `BaseHead.astro` y `Header.astro` |

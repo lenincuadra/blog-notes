@@ -3,8 +3,8 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const blog = defineCollection({
-	// Load Markdown and MDX files in the `src/content/blog/` directory.
-	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+	// Load Markdown and MDX files in the `src/content/blog/` directory, except the translations.
+	loader: glob({ base: './src/content/blog', pattern: ['**/*.{md,mdx}', '!translations/**'] }),
 	// Type-check frontmatter using a schema
 	schema: ({ image }) =>
 		z.object({
@@ -28,4 +28,14 @@ const blog = defineCollection({
 		}),
 });
 
-export const collections = { blog };
+// Translations of the posts: translations/<language>/<id of the original>.md, with the translated
+// title and description. The rest (date, tags) comes from the original. See src/i18n.ts.
+const translations = defineCollection({
+	loader: glob({ base: './src/content/blog/translations', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+	}),
+});
+
+export const collections = { blog, translations };

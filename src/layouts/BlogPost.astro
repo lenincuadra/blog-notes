@@ -5,20 +5,38 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import UiText from '../components/UiText.astro';
 import { SITE_TITLE } from '../consts';
+import { type Language, TAGS, TRANSLATED_FROM, UI } from '../i18n';
 
 // Pages like About use this layout without a date, tags or language, so they are optional here.
 type Props = Omit<CollectionEntry<'blog'>['data'], 'pubDate' | 'tags' | 'lang'> & {
 	pubDate?: Date;
 	tags?: string[];
-	lang?: CollectionEntry<'blog'>['data']['lang'];
+	lang?: Language;
+	// The translation, if there is one: its language and title. Its text goes in the "translation" slot.
+	translation?: { lang: Language; title: string };
+	// "Translated from…" under the title. About has its own text in each language, so it doesn't say it.
+	translationNote?: boolean;
 };
 
-// The page takes the post's language (English by default), so screen readers and search engines read it right
-const { title, description, pubDate, updatedDate, heroImage, tags = [], lang = 'en' } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	tags = [],
+	lang = 'en',
+	translation,
+	translationNote = true,
+} = Astro.props;
+// With a translation the page carries both versions and shows the one in the reader's language (global.css).
+// Each one says its language, so screen readers and search engines read it right.
+const version = (name: string) => (translation ? name : undefined);
 ---
 
-<html lang={lang}>
+<html lang="en">
 	<head>
 		<!-- The full name in every title, as on the other pages: the tab and search results say whose notes these are -->
 		<BaseHead title={`${title} | ${SITE_TITLE}`} description={description} />
@@ -27,7 +45,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [], lang = '
 	<body>
 		<Header />
 		<main>
-			<article class="post">
+			<article class="post" data-translation={translation?.lang}>
 				<header class="post-header">
 					{
 						pubDate && (
@@ -35,22 +53,68 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [], lang = '
 								<FormattedDate date={pubDate} />
 								{updatedDate && (
 									<span>
-										Updated{' '}
-										<FormattedDate date={updatedDate} />
+										<UiText text={UI.updated} /> <FormattedDate date={updatedDate} />
 									</span>
 								)}
-								{tags.map((tag) => <span class={`tag tag-${tag}`}>{tag}</span>)}
+								{tags.map((tag) => (
+									<span class={`tag tag-${tag}`}>
+										<UiText text={TAGS[tag] ?? { en: tag, es: tag }} />
+									</span>
+								))}
 							</p>
 						)
 					}
-					<h1 class="post-title">{title}</h1>
+					<h1 class="post-title" lang={lang} data-version={version('original')}>{title}</h1>
+					{
+						translation && (
+							<h1 class="post-title" lang={translation.lang} data-version="translation">
+								{translation.title}
+							</h1>
+						)
+					}
+					{
+						translation && translationNote && (
+							<Fragment>
+								<p class="post-version" data-version="translation">
+									<UiText text={TRANSLATED_FROM[lang]} /> ·{' '}
+									<button type="button" data-show="original">
+										<UiText text={UI.seeOriginal} />
+									</button>
+								</p>
+								<p class="post-version" data-version="back">
+									<button type="button" data-show="">
+										<UiText text={UI.seeTranslation} />
+									</button>
+								</p>
+							</Fragment>
+						)
+					}
 				</header>
 				{heroImage && <Image class="post-hero" width={1020} height={510} src={heroImage} alt="" />}
-				<div class="prose">
+				<div class="prose" lang={lang} data-version={version('original')}>
 					<slot />
 				</div>
+				{
+					translation && (
+						<div class="prose" lang={translation.lang} data-version="translation">
+							<slot name="translation" />
+						</div>
+					)
+				}
 			</article>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<script>
+	// "See the original" and "See the translation", under the title of a translated post
+	document.querySelectorAll<HTMLButtonElement>('.post-version button').forEach((button) => {
+		button.addEventListener('click', () => {
+			const post = button.closest<HTMLElement>('.post');
+			if (!post) return;
+			if (button.dataset.show) post.dataset.show = button.dataset.show;
+			else delete post.dataset.show;
+		});
+	});
+</script>
