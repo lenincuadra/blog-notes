@@ -186,7 +186,7 @@ main {
 	padding-block: var(--sp-8) var(--sp-16);
 }
 
-/* Filter: All · practice */
+/* Filter: View All · Personal · Practice */
 .filter {
 	font-family: var(--font-mono);
 	font-size: var(--text-xs);
@@ -211,11 +211,6 @@ main {
 	text-decoration-color: var(--accent);
 	text-decoration-thickness: 2px;
 	text-underline-offset: 4px;
-}
-
-.filter .filter-clear {
-	padding-inline: var(--sp-1);
-	color: var(--accent-ink);
 }
 
 /* Post list */

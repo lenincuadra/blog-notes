@@ -1,10 +1,12 @@
 ---
 // Filters for the post list. Each filter is its own page, so the portfolio
-// can link straight to a filtered view. To add a filter, list it here and
-// create its page in src/pages/.
+// can link straight to a filtered view. View All is the front page, where
+// visitors arrive on their own; the portfolio links to Practice. To add a
+// filter, list it here and create its page in src/pages/.
 const filters = [
-	{ label: 'All', href: '/' },
-	{ label: 'practice', href: '/practice/' },
+	{ label: 'View All', href: '/' },
+	{ label: 'Personal', href: '/personal/' },
+	{ label: 'Practice', href: '/practice/' },
 ];
 
 interface Props {
@@ -16,7 +18,6 @@ const { current } = Astro.props;
 ---
 
 <nav class="filter" aria-label="Filter posts">
-	Filter:{' '}
 	{
 		filters.map(({ label, href }, i) => (
 			<Fragment>
@@ -29,10 +30,4 @@ const { current } = Astro.props;
 			</Fragment>
 		))
 	}
-	{current !== '/' && (
-		<Fragment>
-			{' '}
-			<a class="filter-clear" href="/" aria-label="Remove filter" title="Remove filter">✕</a>
-		</Fragment>
-	)}
 </nav>

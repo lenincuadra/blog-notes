@@ -15,8 +15,9 @@ Este documento describe la estructura del proyecto. Actualízalo cada vez que ca
 
 | Dirección | Archivo | Qué muestra |
 | --- | --- | --- |
-| `/` | `src/pages/index.astro` | Todos los posts, con el filtro `All · practice` |
-| `/practice/` | `src/pages/practice.astro` | Solo los posts con la etiqueta `practice`. Es la dirección que enlaza el portafolio; el ✕ quita el filtro y lleva a la portada |
+| `/` | `src/pages/index.astro` | Todos los posts (View All). Es adonde llega quien entra por su cuenta. Arriba está el filtro `View All · Personal · Practice` |
+| `/personal/` | `src/pages/personal.astro` | Solo los posts personales, es decir, los que no tienen la etiqueta `practice` |
+| `/practice/` | `src/pages/practice.astro` | Solo los posts con la etiqueta `practice`. Es la dirección que enlaza el portafolio |
 | `/<id-del-post>/` | `src/pages/[...slug].astro` | Un post. Cada post tiene una sola dirección |
 | `/about/` | `src/pages/about.astro` | La página "About" |
 | `/rss.xml` | `src/pages/rss.xml.js` | El feed RSS con todos los posts |
@@ -46,7 +47,7 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 | `src/content.config.ts` | Define la colección `blog`: dónde están los posts (`src/content/blog/`) y qué campos lleva su frontmatter. `title`, `description` y `pubDate` son obligatorios; `updatedDate`, `heroImage` y `tags`, opcionales (`tags` queda como lista vacía si se omite). Si un post no cumple, Astro muestra un error. |
 | `src/pages/[...slug].astro` | Crea una página por cada post (`getStaticPaths`) y convierte su Markdown en HTML (`render`). Los corchetes indican una ruta dinámica: cada post obtiene su URL en `/<id-del-post>/`. |
 | `src/pages/rss.xml.js` | Genera el feed en `/rss.xml` a partir de la colección `blog`. |
-| `src/consts.ts` | El nombre del blog (`SITE_NAME`), el autor (`SITE_AUTHOR`), el título completo y las descripciones: la del sitio y la de `/practice/` (`PRACTICE_DESCRIPTION`), que es la que se ve al compartir el enlace del portafolio. Los usan el `<head>`, la marca, el footer y el RSS. |
+| `src/consts.ts` | El nombre del blog (`SITE_NAME`), el autor (`SITE_AUTHOR`), el título completo y las descripciones: la del sitio y las de `/personal/` y `/practice/` (`PERSONAL_DESCRIPTION` y `PRACTICE_DESCRIPTION`). La de `/practice/` es la que se ve al compartir el enlace del portafolio. Los usan el `<head>`, la marca, el footer y el RSS. |
 | `src/components/FormattedDate.astro` | Formatea las fechas. Por defecto usa `en-us`; si el blog va en español, se cambia aquí. |
 
 ## Lógica dentro de archivos de diseño
@@ -56,9 +57,10 @@ La lista completa de lo que el blog toma del portafolio, y qué revisar cuando e
 | `src/components/BaseHead.astro` | Metadatos SEO, URL canónica, Open Graph, RSS, sitemap, la carga de los tokens del portafolio y el script que aplica el tema guardado | Las fuentes, los favicons y la imagen por defecto para redes sociales (`og-default.png`) |
 | `src/components/Header.astro` | El script del botón de tema, que cambia el tema y guarda la elección | La marca, el favicon dibujado en línea y el menú. Los estilos del botón vienen del portafolio |
 | `src/pages/index.astro` | La obtención de todos los posts (`getCollection`) y el orden por fecha | La estructura de la página |
+| `src/pages/personal.astro` | El filtro (los posts sin la etiqueta `practice`) y el orden por fecha | La estructura de la página |
 | `src/pages/practice.astro` | El filtro por la etiqueta `practice` y el orden por fecha | La estructura de la página |
 | `src/components/PostList.astro` | El enlace de cada post a `/<id-del-post>/` | La maquetación del listado |
-| `src/components/PostFilter.astro` | La lista de filtros, cuál está activo y el ✕ que lo quita | Su apariencia |
+| `src/components/PostFilter.astro` | La lista de filtros (View All, Personal y Practice) y cuál está activo | Su apariencia |
 | `src/components/HeaderLink.astro` | El cálculo del enlace activo | Su apariencia |
 | `src/layouts/BlogPost.astro` | Las props que recibe del post y el `<slot />`, donde se inserta el contenido. La fecha y las etiquetas son opcionales para páginas como About, que no muestran fecha. El título de la pestaña y de los buscadores suma el nombre del blog: "About \| Notes by Lenin Cuadra" | La presentación del post |
 
