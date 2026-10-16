@@ -4,22 +4,31 @@
 //   node tools/atajo/generar.mjs --reglas > /tmp/reglas.json
 //   osascript -l JavaScript tools/atajo/probar.js /tmp/reglas.json [notas.json]
 //
-// notas.json, optional: a list of { "nota": "...", "lang": "es" } to try instead of the samples below.
-// The note is what "Make Markdown from Rich Text" returns. Detect Language and the date are not tested:
-// each sample says its language, and the date is a fixed one.
+// notas.json, optional: a list of { "nota": "...", "lang": "es", "tituloPedido": "..." } to try instead
+// of the samples below. The note is what "Make Markdown from Rich Text" returns (see generar.mjs), and
+// tituloPedido is the title you would type when the note is a single paragraph. Detect Language and the
+// date are not tested: each sample says its language, and the date is a fixed one.
 ObjC.import('Foundation');
 
 const SAMPLES = [
 	{
 		lang: 'es',
-		nota: 'Una prueba\nPrimer párrafo con una idea. Sigue la idea.\nSegundo párrafo, con una lista:\n–\tuno\n–\tdos\nCierre del texto.\n\n#practice #Prueba',
+		tituloPedido: 'Una frase larga',
+		nota: 'Una frase larga que ocupa todo el título de la nota, tan larga que la conversión la corta en dos\npedazos.\n\n#Quote #Prueba',
+	},
+	{
+		lang: 'es',
+		nota:
+			'Una prueba\n\nPrimer párrafo con una idea que sigue y sigue hasta pasar de los cien caracteres, como pasa\nmuchas veces. Sigue la idea.\n\n' +
+			'Segundo párrafo, con una lista:\n\n  * uno\n  * dos\n\nCierre del texto.\n\n#practice #Prueba',
 	},
 	{
 		lang: 'en',
-		nota: "# A test: it's \"quoted\"\n\nFirst paragraph. Second sentence!\n\n- one\n- two\n\nLast line. \\#Quote \\#Practice",
+		nota: "# A test: it's \"quoted\"\n\nFirst paragraph. Second sentence!\n\nLast line. \\#Quote \\#Practice",
 	},
-	{ lang: 'en', nota: '**Practice**\nA note whose title is the name of a page.' },
-	{ lang: 'en', nota: 'Only a title' },
+	{ lang: 'es', nota: 'Una lista escrita en Notas\n\n–\tuno\n\n–\tdos\n\nFin.' },
+	{ lang: 'en', nota: '**Practice**\n\nA note whose title is the name of a page.' },
+	{ lang: 'en', tituloPedido: 'Short', nota: 'Only a title' },
 ];
 
 function read(path) {
@@ -47,11 +56,17 @@ function matches(string, pattern) {
 
 const replaceAll = (string, steps) => steps.reduce((current, [, find, replaceWith]) => replace(current, find, replaceWith), string);
 
-function toPost(rules, { nota, lang }) {
+function toPost(rules, { nota, lang, tituloPedido }) {
 	const note = replaceAll(nota, rules.note);
-	const title = replaceAll(matches(note, rules.firstLine)[0] || '', rules.title);
+	let title = replaceAll(matches(note, rules.firstLine)[0] || '', rules.title);
 	if (!title) return '(stops: the note has no title)';
-	const body = replaceAll(note, rules.body);
+	let body = replaceAll(note, rules.body);
+	if (!body) {
+		// A note of one paragraph: it becomes the text, and the shortcut asks for a title
+		body = title;
+		title = (tituloPedido || '').trim();
+		if (!title) return '(stops: it asks for a title and gets none)';
+	}
 	const practice = matches(note, rules.practice).length > 0;
 	const slug = replaceAll(title.toLowerCase(), rules.slug);
 	if (!slug) return '(stops: no letters or numbers in the title)';

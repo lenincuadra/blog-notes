@@ -23,29 +23,42 @@ const RESERVED = ['about', 'personal', 'practice'];
 
 // ---------- Text rules ----------
 // Regular expressions in ICU syntax, the engine Shortcuts uses. Each step: [what it does, find, replace].
+//
+// What "Make Markdown from Rich Text" returns: Shortcuts turns the note into HTML and then into Markdown
+// with a port of html2text. Paragraphs come separated by a blank line, list items start with "  * ", and
+// any line longer than about 100 characters is cut in two. A note's first paragraph, its title in Notes,
+// can be that long: a quote written all in the title.
 
 export const RULES = {
 	// The whole note, already in Markdown
 	note: [
 		['Windows line breaks and Unicode separators', String.raw`\r\n?|[  ]`, '\n'],
+		['Lines with only spaces are blank', String.raw`(?m)^[ \t ]+$`, ''],
 		['Blank space before the title', String.raw`\A\s+`, ''],
+		// Unless the line ends in two spaces (a line break in Markdown) or the next one starts a list
+		// item, a code block or a line of hashtags
+		[
+			'Lines the conversion cut are joined back',
+			String.raw`(?<!\n)(?<!  )\n(?![ \t]*\n)(?![ \t]*(?:[-*+]|\d+[.)])[ \t])(?![ \t]*[–•◦▪]\t)(?! {4}|\t)(?![ \t]*\\?#[\p{L}\p{N}_])`,
+			' ',
+		],
 	],
 	firstLine: String.raw`\A[^\n]*`,
 	title: [
+		['Hashtags at the end of the title', String.raw`(?:[ \t ]+\\?#[\p{L}\p{N}_-]+)+[ \t ]*\z`, ''],
 		['Markdown marks around the title (#, **, _)', String.raw`\A[\s#*_\\]+|[\s*_]+\z`, ''],
 		['Characters the conversion escaped', String.raw`\\([!-/:-@\[-\x60{-~])`, '$1'],
 	],
 	body: [
 		['Drop the first line: it is the title', String.raw`\A[^\n]*\n*`, ''],
-		['Lists from Notes (–, •) become Markdown lists', String.raw`(?m)^([ \t]*)\\?(?:[–•◦▪]|-(?=\t))[\t ]+`, '$1- '],
+		['List items of the conversion start with "- ", as in the other posts', String.raw`(?m)^ {0,3}[*+][ \t]+`, '- '],
+		['A dash or bullet and a tab, as Notes writes list items', String.raw`(?m)^[ \t]*\\?[-–•◦▪]\t[\t ]*`, '- '],
 		[
 			'Lines that only have hashtags',
 			String.raw`(?m)^[ \t ]*\\?#[\p{L}\p{N}_-]+(?:[ \t ]+\\?#[\p{L}\p{N}_-]+)*[ \t ]*$`,
 			'',
 		],
 		['Hashtags at the end of the text', String.raw`(?:[ \t ]+\\?#[\p{L}\p{N}_-]+)+\s*\z`, ''],
-		['Spaces at the end of each line', String.raw`(?m)[ \t ]+$`, ''],
-		['Each line of the note is a paragraph', String.raw`\n`, '\n\n'],
 		['No extra blank lines', String.raw`\n{3,}`, '\n\n'],
 		[
 			'The items of a list stay together',
@@ -249,7 +262,7 @@ if_(INPUT, HAS_NOT, undefined, () => {
 	stop();
 });
 
-comment('1. La nota pasa a Markdown. Su primera línea es el título; el resto, el texto del post, tal cual.');
+comment('1. La nota pasa a Markdown. Su primer párrafo es el título; el resto, el texto del post, tal cual.');
 const markdown = action('is.workflow.actions.getmarkdownfromrichtext', { WFInput: variable(INPUT) }, 'Markdown');
 set('nota', replaceAll(markdown, RULES.note));
 set('titulo', replaceAll(first(match(v('nota'), RULES.firstLine)), RULES.title));
@@ -258,6 +271,21 @@ if_(v('titulo'), HAS_NOT, undefined, () => {
 	stop();
 });
 set('cuerpo', replaceAll(v('nota'), RULES.body));
+
+comment('Si la nota es un solo párrafo, como una frase escrita entera en el título, la frase es el texto del post y el atajo te pide un título.');
+if_(v('cuerpo'), HAS_NOT, undefined, () => {
+	set('cuerpo', v('titulo'));
+	const asked = action(
+		'is.workflow.actions.ask',
+		{ WFInputType: 'Text', WFAskActionPrompt: 'La nota es una sola frase y va como texto del post. ¿Qué título le pones?' },
+		'Título',
+	);
+	set('titulo', replace(asked, String.raw`\A\s+|\s+\z`, ''));
+	if_(v('titulo'), HAS_NOT, undefined, () => {
+		alert('No se publicó', 'El post necesita un título.');
+		stop();
+	});
+});
 
 comment('2. Si la nota tiene #practice, el post va a Practice. Ningún hashtag se publica.');
 if_(

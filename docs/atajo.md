@@ -6,14 +6,16 @@ Publica una nota de Notas (Apple Notes) como post del blog, desde el iPhone o la
 
 1. En Notas, abre la nota que quieres publicar.
 2. Toca **Compartir** y elige **Publicar en el blog**.
-3. Elige la fecha del post. Viene marcada la de hoy; para una nota vieja, elige la fecha en que la escribiste.
-4. Revisa el resumen (título, vista, fecha, idioma y dirección) y toca **Publicar**.
-5. El atajo te avisa si se publicó o por qué no.
+3. Si la nota es una sola frase, el atajo te pide un título.
+4. Elige la fecha del post. Viene marcada la de hoy; para una nota vieja, elige la fecha en que la escribiste.
+5. Revisa el resumen (título, vista, fecha, idioma y dirección) y toca **Publicar**.
+6. El atajo te avisa si se publicó o por qué no.
 
 ## Cómo se escribe la nota
 
-- **La primera línea es el título.** Lo demás es el texto del post, tal cual: el atajo no corrige nada.
-- **Cada línea es un párrafo.** Las listas de Notas, con guiones o viñetas, siguen siendo listas.
+- **El primer párrafo es el título**, como en Notas. Lo demás es el texto del post, tal cual: el atajo no corrige nada.
+- **Si la nota es una sola frase**, por ejemplo una cita escrita entera en el título, esa frase es el texto del post y el atajo te pide un título.
+- **Los párrafos y las listas** de la nota se mantienen.
 - **`#practice`**, en cualquier parte de la nota, manda el post a Practice. Sin ese hashtag va a Personal.
 - **Los hashtags no se publican.** El atajo quita las líneas que solo tienen hashtags y los que quedan al final del texto.
 - **El idioma se detecta solo**: español o inglés.
@@ -38,6 +40,8 @@ No compartas el atajo: lleva el token adentro.
 ## Cómo se cambia
 
 El atajo no se edita a mano en la app: lo arma `tools/atajo/generar.mjs`, así el repositorio guarda cómo funciona.
+
+Un detalle que conviene saber: Atajos pasa la nota a Markdown con su propia versión de html2text, que corta en dos cualquier línea de más de unos 100 caracteres. El atajo vuelve a unir esas líneas antes de separar el título del texto. Si algún día un post sale con un párrafo partido, o con dos párrafos pegados, el problema está en ese paso.
 
 1. Cambia `tools/atajo/generar.mjs`. Las reglas de texto (títulos, párrafos, listas, hashtags, dirección) están arriba, en `RULES`.
 2. Prueba las reglas con el mismo motor que usa Atajos:
