@@ -298,7 +298,7 @@ if_(
 	},
 	() => {
 		setText('vista', 'Personal');
-		setText('tags', '[]');
+		setText('tags', "['personal']");
 	},
 );
 

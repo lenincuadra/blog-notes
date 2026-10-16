@@ -16,7 +16,7 @@ Publica una nota de Notas (Apple Notes) como post del blog, desde el iPhone o la
 - **El primer párrafo es el título**, como en Notas. Lo demás es el texto del post, tal cual: el atajo no corrige nada.
 - **Si la nota es una sola frase**, por ejemplo una cita escrita entera en el título, esa frase es el texto del post y el atajo te pide un título.
 - **Los párrafos y las listas** de la nota se mantienen.
-- **`#practice`**, en cualquier parte de la nota, manda el post a Practice. Sin ese hashtag va a Personal.
+- **`#practice`**, en cualquier parte de la nota, manda el post a Practice. Sin ese hashtag va a Personal, con la etiqueta `personal`.
 - **Los hashtags no se publican.** El atajo quita las líneas que solo tienen hashtags y los que quedan al final del texto.
 - **El idioma se detecta solo**: español o inglés.
 - **La dirección sale del título**, en minúsculas, sin tildes y con guiones: "Si estás perdido" se publica en `/si-estas-perdido/`.

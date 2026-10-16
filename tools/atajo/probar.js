@@ -79,7 +79,7 @@ function toPost(rules, { nota, lang, tituloPedido }) {
 		`title: '${title.split("'").join("''")}'`,
 		`description: '${description}'`,
 		"pubDate: 'Oct 16 2026'",
-		`tags: ${practice ? "['practice']" : '[]'}`,
+		`tags: ${practice ? "['practice']" : "['personal']"}`,
 		`lang: '${lang}'`,
 		'---',
 		'',

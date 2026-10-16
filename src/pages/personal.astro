@@ -7,8 +7,8 @@ import PostFilter from '../components/PostFilter.astro';
 import PostList from '../components/PostList.astro';
 import { PERSONAL_DESCRIPTION, SITE_TITLE } from '../consts';
 
-// Personal posts: every post without the "practice" tag.
-const posts = (await getCollection('blog', ({ data }) => !data.tags.includes('practice'))).sort(
+// Personal posts: the ones tagged "personal" (a post without a tag is personal too, see content.config.ts)
+const posts = (await getCollection('blog', ({ data }) => data.tags.includes('personal'))).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---

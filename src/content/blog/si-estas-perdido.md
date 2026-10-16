@@ -2,6 +2,7 @@
 title: 'Si estás perdido'
 description: 'Recuerda que una vez ya lo estuviste y sabes cómo salir de eso.'
 pubDate: 'Aug 22 2023'
+tags: ['personal']
 lang: 'es'
 ---
 
