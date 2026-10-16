@@ -5,9 +5,10 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import Tag from '../components/Tag.astro';
 import UiText from '../components/UiText.astro';
 import { SITE_TITLE } from '../consts';
-import { type Language, TAGS, TRANSLATED_FROM, UI, WRITTEN_IN } from '../i18n';
+import { type Language, TRANSLATED_FROM, UI, WRITTEN_IN } from '../i18n';
 
 // Pages like About use this layout without a date, tags or language, so they are optional here.
 type Props = Omit<CollectionEntry<'blog'>['data'], 'pubDate' | 'tags' | 'lang'> & {
@@ -58,9 +59,7 @@ const version = (name: string) => (translation ? name : undefined);
 									</span>
 								)}
 								{tags.map((tag) => (
-									<span class={`tag tag-${tag}`}>
-										<UiText text={TAGS[tag] ?? { en: tag, es: tag }} />
-									</span>
+									<Tag tag={tag} />
 								))}
 							</p>
 						)

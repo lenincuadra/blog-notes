@@ -314,6 +314,7 @@ main {
 
 /* Practice in green; personal in the portfolio's violet, the color of the mark's highlighter */
 .tag {
+	position: relative;
 	padding: 0.1rem 0.55rem;
 	border-radius: 999px;
 	background: var(--notes-chip-green);
@@ -333,19 +334,22 @@ main {
 	border-radius: var(--r-sm);
 }
 
-/* On hover, beside it, what EN or ES means. Touch screens have no hover: there, the post says it
-   under its title */
-.lang-mark-tip {
+/* A tooltip beside a tag or the EN/ES mark, on hover: what it means. Touch screens have no hover:
+   there the tag's word says enough, and the mark says it in words (below). */
+.tip {
 	position: absolute;
+	z-index: 2;
 	top: 50%;
 	left: calc(100% + var(--sp-2));
+	width: max-content;
+	max-width: 18rem;
 	padding: var(--sp-1) var(--sp-2);
 	border-radius: var(--r-sm);
 	background: var(--ink);
 	color: var(--bg);
+	line-height: 1.5;
 	letter-spacing: 0.02em;
 	text-transform: none;
-	white-space: nowrap;
 	pointer-events: none;
 	opacity: 0;
 	translate: -4px -50%;
@@ -354,9 +358,25 @@ main {
 		translate var(--dur-fast);
 }
 
-.lang-mark:hover .lang-mark-tip {
+:is(.tag, .lang-mark):hover .tip {
 	opacity: 1;
 	translate: 0 -50%;
+}
+
+/* Where there is no hover (phones), the mark says it in words: "Escrito en inglés" */
+.lang-mark-words {
+	display: none;
+}
+
+@media (hover: none) {
+	.lang-mark-code,
+	.tip {
+		display: none;
+	}
+
+	.lang-mark-words {
+		display: inline;
+	}
 }
 
 /* Hidden on screen, read by screen readers */

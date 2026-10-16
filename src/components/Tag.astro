@@ -1,0 +1,24 @@
+---
+// A tag (personal or practice), with what it means on hover. Touch screens have no hover: there, the
+// word on the tag says enough.
+import { TAG_MEANINGS, TAGS } from '../i18n';
+import UiText from './UiText.astro';
+
+interface Props {
+	tag: string;
+}
+
+const { tag } = Astro.props;
+const meaning = TAG_MEANINGS[tag];
+---
+
+<span class={`tag tag-${tag}`}>
+	<UiText text={TAGS[tag] ?? { en: tag, es: tag }} />
+	{
+		meaning && (
+			<span class="tip" aria-hidden="true">
+				<UiText text={meaning} />
+			</span>
+		)
+	}
+</span>

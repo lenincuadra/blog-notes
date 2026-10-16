@@ -54,6 +54,18 @@ export const TAGS: Record<string, Text> = {
 	practice: { en: 'practice', es: 'práctica' },
 };
 
+// What each tag means, on hover. Like the descriptions of /personal/ and /practice/ (src/consts.ts)
+export const TAG_MEANINGS: Record<string, Text> = {
+	personal: {
+		en: 'The personal side: what I learn, think and make beyond design',
+		es: 'El lado personal: lo que aprendo, pienso y hago más allá del diseño',
+	},
+	practice: {
+		en: 'The design side: what I learn, think and make in practice',
+		es: 'El lado del diseño: lo que aprendo, pienso y hago en la práctica',
+	},
+};
+
 export function formatDate(date: Date): Text {
 	const options = { year: 'numeric', month: 'short', day: 'numeric' } as const;
 	return { en: date.toLocaleDateString('en-us', options), es: date.toLocaleDateString('es', options) };
