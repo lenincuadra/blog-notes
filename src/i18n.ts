@@ -38,11 +38,7 @@ export const WRITTEN_IN: Record<Language, Text> = {
 	en: { en: 'Written in English', es: 'Escrito en inglés' },
 	es: { en: 'Written in Spanish', es: 'Escrito en español' },
 };
-// EN or ES in the list, explained: the title may be showing a translation, so it says "originally"
-export const ORIGINALLY_IN: Record<Language, Text> = {
-	en: { en: 'Originally written in English', es: 'Escrito originalmente en inglés' },
-	es: { en: 'Originally written in Spanish', es: 'Escrito originalmente en español' },
-};
+// The same two sentences explain EN and ES in the list, by what the reader will find (PostList.astro)
 export const TRANSLATED_FROM: Record<Language, Text> = {
 	en: { en: 'Translated from English', es: 'Traducido del inglés' },
 	es: { en: 'Translated from Spanish', es: 'Traducido del español' },

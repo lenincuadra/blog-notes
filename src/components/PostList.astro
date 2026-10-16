@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { getTranslations, ORIGINALLY_IN, WRITTEN_IN } from '../i18n';
+import { getTranslations, type Text, TRANSLATED_FROM, type Translation, WRITTEN_IN } from '../i18n';
 import FormattedDate from './FormattedDate.astro';
 import Tag from './Tag.astro';
 import UiText from './UiText.astro';
@@ -13,12 +13,20 @@ interface Props {
 const { posts } = Astro.props;
 // A translated post shows its title in the reader's language: both titles are in the page
 const translations = await getTranslations();
+
+// What EN or ES says to each reader: what they will find when they open the post. "Translated from
+// Spanish" if it has a translation in their language, "Written in Spanish" if they will read the original.
+const languageNote = (post: CollectionEntry<'blog'>, translation?: Translation): Text => ({
+	en: translation?.lang === 'en' ? TRANSLATED_FROM[post.data.lang].en : WRITTEN_IN[post.data.lang].en,
+	es: translation?.lang === 'es' ? TRANSLATED_FROM[post.data.lang].es : WRITTEN_IN[post.data.lang].es,
+});
 ---
 
 <ul class="post-list">
 	{
 		posts.map((post) => {
 			const translation = translations.get(post.id);
+			const note = languageNote(post, translation);
 			return (
 				<li>
 					<a class:list={['post-card', { 'post-card--practice': post.data.tags.includes('practice') }]} href={`/${post.id}/`}>
@@ -42,13 +50,13 @@ const translations = await getTranslations();
 							<span class="lang-mark">
 								<span class="lang-mark-code" aria-hidden="true">{post.data.lang}</span>
 								<span class="lang-mark-words" aria-hidden="true">
-									<UiText text={WRITTEN_IN[post.data.lang]} />
+									<UiText text={note} />
 								</span>
 								<span class="tip" aria-hidden="true">
-									<UiText text={ORIGINALLY_IN[post.data.lang]} />
+									<UiText text={note} />
 								</span>
 								<span class="visually-hidden">
-									<UiText text={ORIGINALLY_IN[post.data.lang]} />
+									<UiText text={note} />
 								</span>
 							</span>
 						</span>
