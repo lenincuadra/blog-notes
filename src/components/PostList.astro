@@ -14,7 +14,7 @@ const { posts } = Astro.props;
 // A translated post shows its title in the reader's language: both titles are in the page
 const translations = await getTranslations();
 
-// What EN or ES says to each reader: what they will find when they open the post. "Translated from
+// What the language mark says to each reader: what they will find when they open the post. "Translated from
 // Spanish" if it has a translation in their language, "Written in Spanish" if they will read the original.
 const languageNote = (post: CollectionEntry<'blog'>, translation?: Translation): Text => ({
 	en: translation?.lang === 'en' ? TRANSLATED_FROM[post.data.lang].en : WRITTEN_IN[post.data.lang].en,
@@ -48,16 +48,7 @@ const languageNote = (post: CollectionEntry<'blog'>, translation?: Translation):
 								<Tag tag={tag} />
 							))}
 							<span class="lang-mark">
-								<span class="lang-mark-code" aria-hidden="true">{post.data.lang}</span>
-								<span class="lang-mark-words" aria-hidden="true">
-									<UiText text={note} />
-								</span>
-								<span class="tip" aria-hidden="true">
-									<UiText text={note} />
-								</span>
-								<span class="visually-hidden">
-									<UiText text={note} />
-								</span>
+								<UiText text={note} />
 							</span>
 						</span>
 					</a>

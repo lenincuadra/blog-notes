@@ -326,16 +326,15 @@ main {
 	color: var(--accent-ink);
 }
 
-/* The language a post was written in, in the list: EN or ES, drawn like the switch in the header */
+/* The language a post was written in, in the list, in words: "Escrito en inglés" */
 .lang-mark {
-	position: relative;
 	padding: 0.05rem 0.4rem;
 	border: 1px solid var(--border);
 	border-radius: var(--r-sm);
 }
 
-/* A tooltip beside a tag or the EN/ES mark, on hover: what it means. Touch screens have no hover:
-   there the tag's word says enough, and the mark says it in words (below). */
+/* A tooltip beside a tag, on hover: what it means. Touch screens have no hover: there the tag's word
+   says enough. */
 .tip {
 	position: absolute;
 	z-index: 2;
@@ -358,24 +357,14 @@ main {
 		translate var(--dur-fast);
 }
 
-:is(.tag, .lang-mark):hover .tip {
+.tag:hover .tip {
 	opacity: 1;
 	translate: 0 -50%;
 }
 
-/* Where there is no hover (phones), the mark says it in words: "Escrito en inglés" */
-.lang-mark-words {
-	display: none;
-}
-
 @media (hover: none) {
-	.lang-mark-code,
 	.tip {
 		display: none;
-	}
-
-	.lang-mark-words {
-		display: inline;
 	}
 }
 
