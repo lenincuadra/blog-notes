@@ -36,4 +36,4 @@ Disallow: /
 User-agent: meta-externalagent
 Disallow: /
 
-Sitemap: https://notes.lenincuadra.com/sitemap-index.xml
+Sitemap: https://notes.lenincuadra.com/sitemap.xml
